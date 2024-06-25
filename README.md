@@ -30,6 +30,12 @@ Se observó que la API de SpaceX proporciona datos detallados y actualizados sob
 
 ---
 
+## 3. Recursos
+- **Figma:** https://www.figma.com/design/z6tBPOsFdwCAbe1SuSDCNE/SpaceX-Crew-Dragon-Flight-Control-UI-(Community)?node-id=6802-44&t=JymrkNHCkJxewjrJ-0
+- **Api:** https://github.com/r-spacex/SpaceX-API/blob/master/docs/queries.md
+- **Plantilla del Profesor:** https://campuslands.github.io/spacex/
+---
+
 ## Conclusiones
 
 Estamos entusiasmados con los avances hasta ahora. La estructura y los estilos del proyecto están sólidamente establecidos, proporcionando una base robusta para implementar, adaptar y mejorar.

@@ -319,10 +319,12 @@ body {
   position: absolute;
   bottom: 0;
   left: 0%;
-  height: 15%;
+  height: 10%;
   background-repeat: no-repeat;
   background-position: center;
-  padding-top: 60px;
+  background-position-y: bottom;
+  background-size: cover;
+  z-index: 1;
 }
 
 .footer ul {
@@ -367,6 +369,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 110px;
+  position: relative;
+  z-index: 2;
 }
 
 .buttom__paginacion {

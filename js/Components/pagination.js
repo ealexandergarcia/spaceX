@@ -1,7 +1,11 @@
 import { defecto } from "../helper/filtros.js";
 import { getAllRockets } from "../module/rocket.js";
+import { imageRockets } from "./rockets/imagenes.js";
 import { load } from "./load.js";
-import { title } from "./title.js";
+import { title } from "./rockets/title.js";
+import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "./rockets/information.js";
+import { tableRocketColum1 } from "./rockets/TableRocketColum1.js";
+import { tableRocketColum2 } from "./rockets/TableRocketColum2.js";
 
 const getRocketsId = async (e) =>{
     console.log('Prueba de que funciona la pagina gg easy peace o como chingado se escriba');
@@ -22,8 +26,17 @@ const getRocketsId = async (e) =>{
     let Rocket = await getAllRockets(Rocketdata);
     console.log(Rocket);
     
+    await load();
     await title(Rocket[0].name)
-    // await load();
+    await imageRockets(Rocket[0].flickr_images);
+    await informationRockets(Rocket[0].country, Rocket[0].description);
+    await informationLaunchCostRocket(Rocket[0].cost_per_launch);
+    await informationFirstFlightRocket(Rocket[0].first_flight)
+    await informationWebRocket(Rocket[0].wikipedia)
+    await tableRocketColum1(Rocket[0])
+    await tableRocketColum2(Rocket[0])
+
+
 }
 
 export const paginationRockets = async()=>{
@@ -31,7 +44,7 @@ export const paginationRockets = async()=>{
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion")
   
-    rockets.forEach((val,id) => {
+    rockets.forEach( async (val,id) => {
         let a = document.createElement("a");
         a.setAttribute("href","#");
         a.id = val.id;
@@ -42,14 +55,5 @@ export const paginationRockets = async()=>{
     
     let [a1,a2,a3,a4] = div.children
     a1.click();
-    // <div class="buttom__paginacion">
-    //     <a href="#">&laquo;</a> 
-    //     <a href="#" class="activo">1</a>
-    //     <a href="#">2</a>
-    //     <a href="#">3</a>
-    //     <a href="#">4</a>
-    //     <a href="#">&raquo;</a>
-    // </div>
-    
     return div;
 }

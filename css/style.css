@@ -207,10 +207,10 @@ body {
   border-color: var(--color--two);
 }
 .table__container__1 {
-  /* background: orange; */
-  height: 160px;
+  /*background: orange; */
+  height: 100%;
   overflow-y: auto;
-  padding: 0 25px;
+  padding: 10px 5px;
 }
 .table__container__1 div {
   margin-top: 10px;
@@ -281,13 +281,13 @@ body {
 }
 .information__table__2 h3, .description__container2 h3 {
   text-transform: uppercase;
-  padding: 0 25px;
+  /* padding: 0 25px; */
   margin-bottom: 5px;
   color: var(--color--two);
 }
 .information__table__2 hr {
-  margin: 0 auto;
-  width: 90%;
+  /* margin: 0 auto;
+  width: 90%; */
   border-color: var(--color--two);
 }
 .table__container__2 {

@@ -279,7 +279,7 @@ body {
   /* background: darkblue; */
   grid-area: table__colum__2;
 }
-.information__table__2 h3 {
+.information__table__2 h3, .description__container2 h3 {
   text-transform: uppercase;
   padding: 0 25px;
   margin-bottom: 5px;

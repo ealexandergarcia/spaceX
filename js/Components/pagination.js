@@ -6,6 +6,7 @@ import { title } from "./rockets/title.js";
 import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "./rockets/information.js";
 import { tableRocketColum1 } from "./rockets/TableRocketColum1.js";
 import { tableRocketColum2 } from "./rockets/TableRocketColum2.js";
+import { tableStageRocket } from "./rockets/tableStageRocket.js";
 
 const getRocketsId = async (e) =>{
     console.log('Prueba de que funciona la pagina gg easy peace o como chingado se escriba');
@@ -35,6 +36,8 @@ const getRocketsId = async (e) =>{
     await informationWebRocket(Rocket[0].wikipedia)
     await tableRocketColum1(Rocket[0])
     await tableRocketColum2(Rocket[0])
+    await tableStageRocket(Rocket[0].first_stage, "First Stage")
+    await tableStageRocket(Rocket[0].second_stage, "Second Stage")
 
 
 }

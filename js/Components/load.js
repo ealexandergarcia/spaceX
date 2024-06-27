@@ -10,7 +10,6 @@ export const load = async()=>{
         <div class="load"></div>
         <div class="load"></div>
         <div class="load"></div>
-        <div class="load"></div>
     `;
 
     let section__information__1 = document.querySelector("#section__information__1")
@@ -36,7 +35,6 @@ export const load = async()=>{
 
     let information__2 = document.querySelector("#information__2")
     information__2.innerHTML = `
-        <div class="load"></div>
         <div class="load"></div>
         <div class="load"></div>
         <div class="load"></div>

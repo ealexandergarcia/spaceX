@@ -156,17 +156,18 @@ export const paginationCapsules = async(page=1, limit=4)=>{
 }
 
 const getCrewId = async(e)=>{
-
+    console.log("Llega hasta aca");
     if(e.target.dataset.page){
         let paginacion = document.querySelector("#paginacion");
         paginacion.innerHTML = ""
-        paginacion.append(await paginationCapsules(Number(e.target.dataset.page)))
+        paginacion.append(await paginationCrew(Number(e.target.dataset.page)))
     }
     let a = e.target.parentElement.children;
+    
     for(let val of a){
         val.classList.remove('activo');
     }
-    e.target.classList.add('activo'); 
+    e.target.classList.add('activo');
     await load();
     // let id =e.target.id;
     // let capsuleData = {
@@ -223,7 +224,7 @@ export const paginationCrew = async(page=1, limit=4)=>{
         a.setAttribute("href","#");
         a.id = val.id;
         a.textContent = pagingCounter;
-        a.addEventListener("click", getCapsulesId)
+        a.addEventListener("click", getCrewId)
         div.appendChild(a);
         pagingCounter++
     });
@@ -231,9 +232,11 @@ export const paginationCrew = async(page=1, limit=4)=>{
     end.setAttribute("href","#");
     end.innerHTML = "&raquo;";
     end.setAttribute("data-page", (page && nextPage) ? page+1 : 1)
-    end.addEventListener("click", getCapsulesId)
+    end.addEventListener("click", getCrewId)
     div.appendChild(end);
+    console.log(div);
     let [back, a1,a2,a3,a4, next] = div.children
     a1.click();
+
     return div;
 }

@@ -39,7 +39,7 @@ capsules.addEventListener("click", async(e)=>{
 
 let crew = document.querySelector("#crew")
 crew.addEventListener("click", async(e)=>{
-    await footerSelect(e, capsules)
+    await footerSelect(e, crew)
     let paginacion = document.querySelector("#paginacion");
     paginacion.innerHTML = ""
     paginacion.append(await paginationCrew())

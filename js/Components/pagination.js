@@ -1,5 +1,5 @@
 import { defecto } from "../helper/filtros.js";
-import { getAllRockets } from "../module/rocket.js";
+import { getAllCapsules, getAllRockets } from "../module/rocket.js";
 import { imageRockets } from "./rockets/imagenes.js";
 import { load } from "./load.js";
 import { title } from "./rockets/title.js";
@@ -11,7 +11,6 @@ import { progressDiameterRocket, progressHeightRocket, progressPayloadWeights, p
 import { RocketEngineThrustSeaLevel, informRocketEngineThrustVacuum } from "./rockets/RocketThrustProgressBar.js";
 
 const getRocketsId = async (e) =>{
-    console.log('Prueba de que funciona la pagina gg easy peace o como chingado se escriba');
     let a = e.target.parentElement.children;
     console.log(a);
     
@@ -55,7 +54,7 @@ const getRocketsId = async (e) =>{
 export const paginationRockets = async()=>{
     let rockets = await getAllRockets(defecto);
     let div = document.createElement("div");
-    div.classList.add("buttom__paginacion")
+    div.classList.add("buttom__paginacion");
   
     rockets.forEach( async (val,id) => {
         let a = document.createElement("a");
@@ -67,6 +66,64 @@ export const paginationRockets = async()=>{
     });
     
     let [a1,a2,a3,a4] = div.children
+    a1.click();
+    return div;
+}
+
+const getCapsulesId = async(e)=>{
+    console.log('Prueba de que funciona la pagina gg easy peace o como chingado se escriba');
+
+    if(e.target.dataset.page){
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationCapsules(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+    for(let val of a){
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+    
+    
+}
+
+export const paginationCapsules = async(page=1, limit=4)=>{  
+    const AllCapsules = {
+        "options": {
+            page,
+            limit
+        }
+    } 
+     
+    let {docs, pagingCounter, totalPages, nextPage} = await getAllCapsules(AllCapsules)
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+    console.log(div);
+    
+    let start = document.createElement("a");
+    start.setAttribute("href","#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page==1) ? totalPages : page-1)
+    start.addEventListener("click", getCapsulesId)
+    div.appendChild(start);
+    docs.forEach((val,id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href","#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getCapsulesId)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href","#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page+1 : 1)
+    end.addEventListener("click", getCapsulesId)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1,a2,a3,a4, next] = div.children
     a1.click();
     return div;
 }

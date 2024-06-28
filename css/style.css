@@ -133,7 +133,7 @@ body {
   justify-content: space-evenly;
 }
 
-.section__information__1 > .carousel__item {
+.section__information__2 > .carousel__item {
   /* flex: 1; */
   min-width: 24%;
   /* background-color: purple; */

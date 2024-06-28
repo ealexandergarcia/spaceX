@@ -77,3 +77,14 @@ export const SecondStageHeightTotal = {
         }
     }
 }
+
+export const RocketEngineTotal={
+    "options": {
+        "select": {
+            "engines": 1
+        },
+        "sort": {
+            "engines.thrust_sea_level": "desc"
+        }
+    }
+}

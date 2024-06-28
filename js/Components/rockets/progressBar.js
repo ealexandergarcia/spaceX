@@ -133,3 +133,49 @@ export const progressHeightRocket = async (Rockets) => {
   information__2.append(...conterDiv);
 };
 
+export const progressDiameterRocket = async (Rockets) => {
+  // Paso 1: Obtener el diámetro total de los cohetes
+  let [{ diameter }] = await getAllRockets(RocketDiameterTotal);
+  let { meters } = diameter;
+
+  // Paso 2: Crear un array para almacenar los contenedores
+  let conterDiv = [];
+
+  // Paso 3: Iterar sobre la lista de diámetros de cohetes
+  [Rockets.diameter].forEach((val) => {
+    // Paso 4: Crear el contenedor de información
+    let divInformationContainer = document.createElement("div");
+    divInformationContainer.classList.add("information__container");
+
+    // Paso 5: Crear la etiqueta y el progreso
+    let divFirst = document.createElement("div");
+    let labelFist = document.createElement("label");
+    labelFist.textContent = `Rocket diameter :`;
+
+    let ProgressFist = document.createElement("progress");
+    ProgressFist.max = meters;
+    ProgressFist.value = `${val.meters}`;
+    ProgressFist.textContent = `${val.meters}%`;
+
+    // Paso 6: Crear el span con la información de diámetro
+    let divLast = document.createElement("div");
+    let spanLast = document.createElement("span");
+    let numMeters = new Intl.NumberFormat('cop').format(val.meters);
+    let numFeet = new Intl.NumberFormat('cop').format(val.feet);
+    spanLast.innerHTML = `${numMeters} M <br> ${numFeet} F`;
+
+    // Paso 7: Agregar los elementos al contenedor
+    divFirst.append(labelFist);
+    divFirst.append(ProgressFist);
+    divLast.append(spanLast);
+    divInformationContainer.append(divFirst);
+    divInformationContainer.append(divLast);
+    conterDiv.push(divInformationContainer);
+  });
+
+  // Paso 8: Agregar los contenedores al elemento HTML
+  let section__information__1 = document.querySelector(".section__information__1");
+  let information__2 = section__information__1.querySelector(".information__2");
+  information__2.append(...conterDiv);
+};
+

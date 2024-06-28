@@ -88,3 +88,13 @@ export const RocketEngineTotal={
         }
     }
 }
+export const RocketEngineVacuumTotal={
+    "options": {
+        "select": {
+            "engines": 1
+        },
+        "sort": {
+            "engines.thrust_vacuum": "desc"
+        }
+    }
+}

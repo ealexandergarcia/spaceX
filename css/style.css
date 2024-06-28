@@ -188,7 +188,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+.information__2{
+  height: 150px;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
 .information__table__1 {
   width: 85%;
   margin: 10px auto;
@@ -398,12 +405,14 @@ body {
 }
 
 .information__container {
-  /* background: blue; */
+  /*background: blue; */
   display: flex;
   gap: 5px;
   align-content: center;
-  margin: 0 var(--layout-description-container-x);
-  margin-bottom: 20px;
+  /* margin: 0 var(--layout-description-container-x); */
+  /* margin-bottom: 20px; */
+  align-items: center;
+  width: 32%;
 }
 
 .information__container div:first-child {
@@ -420,12 +429,13 @@ body {
   color: var(--color--two);
   width: 40%;
   display: flex;
-  align-items: flex-end;
+  justify-content: flex-end;
+  font-size: 0.85rem;
 }
 
 progress[value] {
   --color: var(--color--three);
-  --background: var(--color--one--rgb);
+  --background: #ffffffdf;
   background: var(--background);
 }
 

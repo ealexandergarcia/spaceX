@@ -50,3 +50,10 @@ export const load = async()=>{
         <div class="load"></div>
     `;
 }
+
+export const loadFinish = async ()=>{
+    const loadElements = document.querySelectorAll("div.load");
+    loadElements.forEach((element) => {
+    element.classList.remove("load");
+    });
+}

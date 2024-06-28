@@ -45,4 +45,4 @@ crew.addEventListener("click", async(e)=>{
     paginacion.append(await paginationCrew())
 })
 
-capsules.click();
+crew.click();

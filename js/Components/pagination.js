@@ -14,6 +14,7 @@ import { tableCapsule2 } from "./capsules/tableCapsule2.js";
 import { imageCapsule } from "./capsules/imagenes.js";
 import { informationCapsule, informationWebCapsule } from "./capsules/information.js";
 import { videoCapsule } from "./capsules/video.js";
+import { imageCrew } from "./crew/imagenes.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
@@ -168,21 +169,23 @@ const getCrewId = async(e)=>{
         val.classList.remove('activo');
     }
     e.target.classList.add('activo');
-    await load();
-    // let id =e.target.id;
-    // let capsuleData = {
-    //     "query": {
-    //         "_id": id
-    //     },
-    //     "options": {
-    //         "populate": [
-    //             "launches"
-    //         ]
-    //     }
-    // }
 
-    // let info = await getAllCapsules(capsuleData);
-    // let {docs:capsule}= info;
+    let id =e.target.id;
+    let capsuleData = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                "launches"
+            ]
+        }
+    }
+
+    let info = await getAllCrew(capsuleData);
+    let {docs:crew}= info;
+    await load();
+    await imageCrew(crew[0]);
     // await load();
     // await title(capsule[0].serial)
     // await tableCapsule1(capsule[0])

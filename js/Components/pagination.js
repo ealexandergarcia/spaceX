@@ -2,13 +2,16 @@ import { defecto } from "../helper/filtros.js";
 import { getAllCapsules, getAllRockets } from "../module/rocket.js";
 import { imageRockets } from "./rockets/imagenes.js";
 import { load } from "./load.js";
-import { title } from "./rockets/title.js";
+import { title } from "./title.js";
 import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "./rockets/information.js";
 import { tableRocketColum1 } from "./rockets/TableRocketColum1.js";
 import { tableRocketColum2 } from "./rockets/TableRocketColum2.js";
 import { tableStageRocket } from "./rockets/tableStageRocket.js";
 import { progressDiameterRocket, progressHeightRocket, progressPayloadWeights, progressRocketWeight, progressSecondStageDiameterRocket, progressSecondStageHeightRocket } from "./rockets/progressBar.js";
 import { RocketEngineThrustSeaLevel, informRocketEngineThrustVacuum } from "./rockets/RocketThrustProgressBar.js";
+import { tableCapsule1 } from "./capsules/tableCapsule1.js";
+import { tableCapsule2 } from "./capsules/tableCapsule2.js";
+import { imageCapsule } from "./capsules/imagenes.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
@@ -82,9 +85,28 @@ const getCapsulesId = async(e)=>{
     for(let val of a){
         val.classList.remove('activo');
     }
-    e.target.classList.add('activo');
-    
-    
+    e.target.classList.add('activo'); 
+    let id =e.target.id;
+    let capsuleData = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                "launches"
+            ]
+        }
+    }
+
+    let info = await getAllCapsules(capsuleData);
+    let {docs:capsule}= info;
+    console.log(capsule);
+    await load();
+    await title(capsule[0].serial)
+    await tableCapsule1(capsule[0])
+    await tableCapsule2 (capsule[0])
+    await imageCapsule (capsule[0])
+
 }
 
 export const paginationCapsules = async(page=1, limit=4)=>{  

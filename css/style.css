@@ -464,3 +464,11 @@ progress[value]::-moz-progress-bar {
   border-radius: 10em;
   background: var(--color);
 }
+
+
+.slider img {
+  height: 260px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0px 0px 10px var(--color--one);
+}

@@ -15,6 +15,7 @@ import { imageCapsule } from "./capsules/imagenes.js";
 import { informationCapsule, informationWebCapsule } from "./capsules/information.js";
 import { videoCapsule } from "./capsules/video.js";
 import { imageCrew } from "./crew/imagenes.js";
+import { slideCrew } from "./crew/slideShow.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
@@ -185,21 +186,22 @@ const getCrewId = async(e)=>{
     let info = await getAllCrew(capsuleData);
     let {docs:crew}= info;
     await load();
+    await title(crew[0].name)
     await imageCrew(crew[0]);
+    await slideCrew(crew[0]);
     // await load();
-    // await title(capsule[0].serial)
-    // await tableCapsule1(capsule[0])
-    // await tableCapsule2 (capsule[0])
-    // await imageCapsule (capsule[0])
-    // await informationCapsule(capsule[0].last_update)
-    // let {launches:[{links:{webcast}}]} = capsule[0];
-    // await informationWebCapsule(webcast, "Youtube")
-    // let {launches:[{links:{presskit}}]} = capsule[0];
-    // await informationWebCapsule(presskit, "SpaceX")
-    // let {launches:[{links:{wikipedia}}]} = capsule[0];
-    // await informationWebCapsule(wikipedia, "wikipedia")
-    // let {launches:[{links:{youtube_id}}]} = capsule[0];
-    // await videoCapsule(youtube_id)
+    // await tableCapsule1(crew[0])
+    // await tablecrew2 (crew[0])
+    // await imagecrew (crew[0])
+    // await informationCapsule(crew[0].last_update)
+    // let {launches:[{links:{webcast}}]} = crew[0];
+    // await informationWebcrew(webcast, "Youtube")
+    // let {launches:[{links:{presskit}}]} = crew[0];
+    // await informationWebcrew(presskit, "SpaceX")
+    // let {launches:[{links:{wikipedia}}]} = crew[0];
+    // await informationWebcrew(wikipedia, "wikipedia")
+    // let {launches:[{links:{youtube_id}}]} = crew[0];
+    // await videocrew(youtube_id)
     // await loadFinish();
 }
 

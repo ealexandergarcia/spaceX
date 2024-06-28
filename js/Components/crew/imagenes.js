@@ -2,12 +2,13 @@ export const imageCrew = async (capsule) => {
     let {image} = capsule;
 
     const sectionImage = document.querySelector("#section__image");
-    sectionImage.setAttribute("style","height: 260px;")
+    sectionImage.setAttribute("style","height: 260px; display:block;")
     const divs = [];
-
-
+    
+    
     const div = document.createElement("div");
     div.classList.add("carousel__item");
+    div.setAttribute("style","margin: 10px 0;")
     // div.style.add("width: 250px;")
 
     const img = document.createElement("img");

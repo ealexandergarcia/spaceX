@@ -26,8 +26,9 @@ export const RocketEngineThrustSeaLevel = async (thrust_sea_level) => {
     divFirstChildren.append(strong, smallFirst, smallLast)
     divFirst.append(divFirstChildren)
     div.append(divFirst)
-
     let section__information__1 = document.querySelector(".section__information__2");
-    let firstDiv = section__information__1.querySelector("div:first-child");
-    section__information__1.replaceChild(div, firstDiv); // Reemplaza el primer div con el nuevo elemento
+    const loadElement = section__information__1.querySelector("div.rocket");
+    console.log(loadElement);
+    loadElement.parentNode.replaceChild(div, loadElement);
+    // section__information__1.append(div)
 }

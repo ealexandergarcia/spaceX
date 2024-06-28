@@ -66,9 +66,9 @@ body {
 }
 .main {
   /* background: orange; */
-  height: 90vh;
+  /* height: 90vh; */
   display: grid;
-  grid-template-columns: 1.5fr 6fr 2fr;
+  grid-template-columns: 1.5fr 6fr 1.5fr;
   grid-template-areas: "nav__1 main nav__2";
 }
 
@@ -392,7 +392,7 @@ body {
   color: var(--color--five);
   text-decoration: none;
   float: left;
-  padding: 8px 16px;
+  padding: 8px 14px;
 }
 
 .buttom__paginacion a.activo {

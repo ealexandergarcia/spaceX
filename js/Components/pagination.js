@@ -7,6 +7,7 @@ import { informationFirstFlightRocket, informationLaunchCostRocket, informationR
 import { tableRocketColum1 } from "./rockets/TableRocketColum1.js";
 import { tableRocketColum2 } from "./rockets/TableRocketColum2.js";
 import { tableStageRocket } from "./rockets/tableStageRocket.js";
+import { progressDiameterRocket, progressHeightRocket, progressPayloadWeights, progressRocketWeight, progressSecondStageDiameterRocket, progressSecondStageHeightRocket } from "./rockets/progressBar.js";
 
 const getRocketsId = async (e) =>{
     console.log('Prueba de que funciona la pagina gg easy peace o como chingado se escriba');
@@ -38,6 +39,12 @@ const getRocketsId = async (e) =>{
     await tableRocketColum2(Rocket[0])
     await tableStageRocket(Rocket[0].first_stage, "First Stage")
     await tableStageRocket(Rocket[0].second_stage, "Second Stage")
+    await progressRocketWeight(Rocket[0])
+    await progressPayloadWeights(Rocket[0])
+    await progressHeightRocket(Rocket[0])
+    await progressDiameterRocket(Rocket[0])
+    await progressSecondStageDiameterRocket(Rocket[0])
+    await progressSecondStageHeightRocket(Rocket[0])
 
 
 }

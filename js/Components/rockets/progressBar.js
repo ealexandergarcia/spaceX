@@ -200,7 +200,9 @@ export const progressSecondStageDiameterRocket = async (Rockets) => {
 
     let ProgressFist = document.createElement("progress");
     ProgressFist.max = meters;
-    ProgressFist.value = `${val.meters}`;
+    console.log(val);
+    console.log(val.meters);
+    ProgressFist.value = `${val.meters ? val.meters : 0}`;
     ProgressFist.textContent = `${val.meters}%`;
 
     // Paso 6: Crear el span con la información de diámetro
@@ -246,7 +248,7 @@ export const progressSecondStageHeightRocket = async (Rockets) => {
 
     let ProgressFist = document.createElement("progress");
     ProgressFist.max = meters;
-    ProgressFist.value = `${val.meters}`;
+    ProgressFist.value = `${val.meters}`? val.meters : 0;
     ProgressFist.textContent = `${val.meters}%`;
 
     // Paso 6: Crear el span con la información de altura

@@ -1,5 +1,5 @@
 import { load } from "./Components/load.js";
-import { paginationRockets } from "./Components/pagination.js";
+import { paginationCapsules, paginationRockets } from "./Components/pagination.js";
 import { defecto, masa } from "./helper/filtros.js";
 import { getAllRockets } from "./module/rocket.js";
 
@@ -31,5 +31,12 @@ rocket.addEventListener("click", async(e)=>{
     paginacion.append(await paginationRockets())
 } )
 
+let capsules = document.querySelector("#capsules")
+capsules.addEventListener("click", async(e)=>{
+    await footerSelect(e, capsules)
+    let paginacion = document.querySelector("#paginacion");
+    paginacion.innerHTML = ""
+    paginacion.append(await paginationCapsules())
+})
 
-rocket.click();
+capsules.click();

@@ -1,7 +1,7 @@
 import { defecto } from "../helper/filtros.js";
 import { getAllCapsules, getAllRockets } from "../module/rocket.js";
 import { imageRockets } from "./rockets/imagenes.js";
-import { load } from "./load.js";
+import { load, loadFinish } from "./load.js";
 import { title } from "./title.js";
 import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "./rockets/information.js";
 import { tableRocketColum1 } from "./rockets/TableRocketColum1.js";
@@ -12,6 +12,8 @@ import { RocketEngineThrustSeaLevel, informRocketEngineThrustVacuum } from "./ro
 import { tableCapsule1 } from "./capsules/tableCapsule1.js";
 import { tableCapsule2 } from "./capsules/tableCapsule2.js";
 import { imageCapsule } from "./capsules/imagenes.js";
+import { informationCapsule, informationWebCapsule } from "./capsules/information.js";
+import { videoCapsule } from "./capsules/video.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
@@ -106,7 +108,16 @@ const getCapsulesId = async(e)=>{
     await tableCapsule1(capsule[0])
     await tableCapsule2 (capsule[0])
     await imageCapsule (capsule[0])
-
+    await informationCapsule(capsule[0].last_update)
+    let {launches:[{links:{webcast}}]} = capsule[0];
+    await informationWebCapsule(webcast, "Youtube")
+    let {launches:[{links:{presskit}}]} = capsule[0];
+    await informationWebCapsule(presskit, "SpaceX")
+    let {launches:[{links:{wikipedia}}]} = capsule[0];
+    await informationWebCapsule(wikipedia, "wikipedia")
+    let {launches:[{links:{youtube_id}}]} = capsule[0];
+    await videoCapsule(youtube_id)
+    // await loadFinish();
 }
 
 export const paginationCapsules = async(page=1, limit=4)=>{  

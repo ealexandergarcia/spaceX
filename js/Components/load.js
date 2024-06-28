@@ -21,6 +21,15 @@ export const load = async()=>{
     information__table__1.innerHTML = `
         <div class="load" style="height: 160px;"></div>
     `;
+    let carousel__item = document.querySelector(".carousel__item")
+    carousel__item.innerHTML = `
+        <div class="load" style="height: 160px;"></div>
+    `;
+    let section__information__3 = document.querySelector(".section__information__3")
+    let carousel__item2 = section__information__3.querySelector(".carousel__item")
+    carousel__item2.innerHTML = `
+        <div class="load" style="height: 160px;"></div>
+    `;
 
     let section__image = document.querySelector("#section__image")
     section__image.innerHTML = `

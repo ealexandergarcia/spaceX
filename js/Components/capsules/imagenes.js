@@ -1,6 +1,5 @@
 export const imageCapsule = async (capsule) => {    
     let {launches:[{links:{patch:{small}}}]} = capsule;
-    console.log(small);
 
     const sectionImage = document.querySelector("#section__image");
     sectionImage.setAttribute("style","height: 260px;")

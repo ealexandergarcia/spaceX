@@ -1,13 +1,11 @@
 import { load } from "./Components/load.js";
-import { paginationCapsules, paginationRockets } from "./Components/pagination.js";
+import { paginationCapsules, paginationCrew, paginationRockets } from "./Components/pagination.js";
 import { defecto, masa } from "./helper/filtros.js";
 import { getAllRockets } from "./module/rocket.js";
 
 let data3 = await getAllRockets(defecto);
-console.log(data3);
 
 let data = await getAllRockets(masa);
-console.log(data);
 
 
 
@@ -37,6 +35,14 @@ capsules.addEventListener("click", async(e)=>{
     let paginacion = document.querySelector("#paginacion");
     paginacion.innerHTML = ""
     paginacion.append(await paginationCapsules())
+})
+
+let crew = document.querySelector("#crew")
+crew.addEventListener("click", async(e)=>{
+    await footerSelect(e, capsules)
+    let paginacion = document.querySelector("#paginacion");
+    paginacion.innerHTML = ""
+    paginacion.append(await paginationCrew())
 })
 
 capsules.click();

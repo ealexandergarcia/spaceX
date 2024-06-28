@@ -41,9 +41,7 @@ export const tableStageRocket = async (stage, title) => {
     const descriptionItem = document.querySelector("#information__2");
     descriptionItem.append(container);
   
-    console.log(descriptionItem);
   
     const loadElement = descriptionItem.querySelector("div.load");
-    console.log(loadElement);
     loadElement.parentNode.replaceChild(container, loadElement);
   };

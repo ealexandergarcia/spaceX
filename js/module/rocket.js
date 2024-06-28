@@ -22,7 +22,19 @@ export const getAllCapsules = async (optio)=>{
     }
     let res = await fetch(url, config);
     let data = await res.json();
-    console.log(data);
+    return data;
+}
+export const getAllCrew = async (optio)=>{
+    const url ="https://api.spacexdata.com/v4/crew/query"
+    let config = {
+        headers:{
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(optio)
+    }
+    let res = await fetch(url, config);
+    let data = await res.json();
     return data;
 }
 

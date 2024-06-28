@@ -1,5 +1,5 @@
 import { defecto } from "../helper/filtros.js";
-import { getAllCapsules, getAllRockets } from "../module/rocket.js";
+import { getAllCapsules, getAllCrew, getAllRockets } from "../module/rocket.js";
 import { imageRockets } from "./rockets/imagenes.js";
 import { load, loadFinish } from "./load.js";
 import { title } from "./title.js";
@@ -17,7 +17,6 @@ import { videoCapsule } from "./capsules/video.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
-    console.log(a);
     
     for(let val of a){
         val.classList.remove('activo');
@@ -31,7 +30,6 @@ const getRocketsId = async (e) =>{
     }
 
     let Rocket = await getAllRockets(Rocketdata);
-    console.log(Rocket);
     
     await load();
     await title(Rocket[0].name)
@@ -76,7 +74,6 @@ export const paginationRockets = async()=>{
 }
 
 const getCapsulesId = async(e)=>{
-    console.log('Prueba de que funciona la pagina gg easy peace o como chingado se escriba');
 
     if(e.target.dataset.page){
         let paginacion = document.querySelector("#paginacion");
@@ -102,7 +99,6 @@ const getCapsulesId = async(e)=>{
 
     let info = await getAllCapsules(capsuleData);
     let {docs:capsule}= info;
-    console.log(capsule);
     await load();
     await title(capsule[0].serial)
     await tableCapsule1(capsule[0])
@@ -132,7 +128,6 @@ export const paginationCapsules = async(page=1, limit=4)=>{
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
-    console.log(div);
     
     let start = document.createElement("a");
     start.setAttribute("href","#");
@@ -155,7 +150,89 @@ export const paginationCapsules = async(page=1, limit=4)=>{
     end.setAttribute("data-page", (page && nextPage) ? page+1 : 1)
     end.addEventListener("click", getCapsulesId)
     div.appendChild(end);
-    console.log(div);
+    let [back, a1,a2,a3,a4, next] = div.children
+    a1.click();
+    return div;
+}
+
+const getCrewId = async(e)=>{
+
+    if(e.target.dataset.page){
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationCapsules(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+    for(let val of a){
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo'); 
+    await load();
+    // let id =e.target.id;
+    // let capsuleData = {
+    //     "query": {
+    //         "_id": id
+    //     },
+    //     "options": {
+    //         "populate": [
+    //             "launches"
+    //         ]
+    //     }
+    // }
+
+    // let info = await getAllCapsules(capsuleData);
+    // let {docs:capsule}= info;
+    // await load();
+    // await title(capsule[0].serial)
+    // await tableCapsule1(capsule[0])
+    // await tableCapsule2 (capsule[0])
+    // await imageCapsule (capsule[0])
+    // await informationCapsule(capsule[0].last_update)
+    // let {launches:[{links:{webcast}}]} = capsule[0];
+    // await informationWebCapsule(webcast, "Youtube")
+    // let {launches:[{links:{presskit}}]} = capsule[0];
+    // await informationWebCapsule(presskit, "SpaceX")
+    // let {launches:[{links:{wikipedia}}]} = capsule[0];
+    // await informationWebCapsule(wikipedia, "wikipedia")
+    // let {launches:[{links:{youtube_id}}]} = capsule[0];
+    // await videoCapsule(youtube_id)
+    // await loadFinish();
+}
+
+export const paginationCrew = async(page=1, limit=4)=>{  
+    const allCrew = {
+        "options": {
+            page,
+            limit
+        }
+    } 
+     
+    let {docs, pagingCounter, totalPages, nextPage} = await getAllCrew(allCrew)
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+    
+    let start = document.createElement("a");
+    start.setAttribute("href","#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page==1) ? totalPages : page-1)
+    start.addEventListener("click", getCrewId)
+    div.appendChild(start);
+    docs.forEach((val,id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href","#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getCapsulesId)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href","#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page+1 : 1)
+    end.addEventListener("click", getCapsulesId)
+    div.appendChild(end);
     let [back, a1,a2,a3,a4, next] = div.children
     a1.click();
     return div;

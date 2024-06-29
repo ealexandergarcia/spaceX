@@ -7,6 +7,7 @@ export const slideCrew = async (capsule) => {
         const slideshowContainer = document.createElement('div');
         slideshowContainer.className = 'slider';
         slideshowContainer.style.maxWidth = '500px';
+        slideshowContainer.style.padding = '10px';
 
         if (original && original.length > 0) {
             original.forEach((imageSrc) => {
@@ -28,7 +29,7 @@ export const slideCrew = async (capsule) => {
         }
 
         // Agrega el contenedor de la slideshow al DOM
-        const descriptionItem = document.querySelector("#section__information__1");
+        const descriptionItem = document.querySelector(".description__item");
         if (!descriptionItem) {
             console.error("#section__information__1 not found");
             return;

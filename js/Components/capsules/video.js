@@ -1,4 +1,4 @@
-export const videoCapsule = async (data) => {
+export const videoCapsule = async (data, clase) => {
     const container = document.createElement("div");
     container.id = "youtube-video";
   
@@ -10,7 +10,7 @@ export const videoCapsule = async (data) => {
     iframe.allowfullscreen = true;
     
     container.appendChild(iframe);
-    const descriptionItem = document.querySelector("#section__information__1");
+    const descriptionItem = document.querySelector(clase);
     const loadElement = descriptionItem.querySelector("div.load");
   
     descriptionItem.removeChild(loadElement);

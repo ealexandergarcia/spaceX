@@ -114,7 +114,7 @@ const getCapsulesId = async(e)=>{
     let {launches:[{links:{wikipedia}}]} = capsule[0];
     await informationWebCapsule(wikipedia, "wikipedia")
     let {launches:[{links:{youtube_id}}]} = capsule[0];
-    await videoCapsule(youtube_id)
+    await videoCapsule(youtube_id,"#section__information__1")
     // await loadFinish();
 }
 
@@ -189,6 +189,8 @@ const getCrewId = async(e)=>{
     await title(crew[0].name)
     await imageCrew(crew[0]);
     await slideCrew(crew[0]);
+    let {launches:[{links:{youtube_id}}]} = crew[0];
+    await videoCapsule(youtube_id,".section__information__1")
     // await load();
     // await tableCapsule1(crew[0])
     // await tablecrew2 (crew[0])

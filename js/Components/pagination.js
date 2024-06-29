@@ -16,6 +16,8 @@ import { informationCapsule, informationWebCapsule } from "./capsules/informatio
 import { videoCapsule } from "./capsules/video.js";
 import { imageCrew } from "./crew/imagenes.js";
 import { slideCrew } from "./crew/slideShow.js";
+import { tableCrew1 } from "./crew/tableCrew1.js";
+import { tableCrew2 } from "./crew/tableCrew2.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
@@ -158,7 +160,6 @@ export const paginationCapsules = async(page=1, limit=4)=>{
 }
 
 const getCrewId = async(e)=>{
-    console.log("Llega hasta aca");
     if(e.target.dataset.page){
         let paginacion = document.querySelector("#paginacion");
         paginacion.innerHTML = ""
@@ -190,7 +191,10 @@ const getCrewId = async(e)=>{
     await imageCrew(crew[0]);
     await slideCrew(crew[0]);
     let {launches:[{links:{youtube_id}}]} = crew[0];
-    await videoCapsule(youtube_id,".section__information__1")
+    await videoCapsule(youtube_id,".section__information__1");
+    await tableCrew1(crew[0]);
+    await tableCrew2(crew[0]);
+
     // await load();
     // await tableCapsule1(crew[0])
     // await tablecrew2 (crew[0])

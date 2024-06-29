@@ -23,3 +23,28 @@ export const imageCrew = async (capsule) => {
     loadElement.parentNode.replaceChild(div, loadElement);
     // sectionImage.appendChild(div);
 };
+
+export const imagePatch = async (crews) => {    
+    let { launches: [{ links:{patch:{small}} }] } = crews;
+
+    const sectionImage = document.querySelector("#information__2");
+    const divs = [];
+    
+    
+    const div = document.createElement("div");
+    div.classList.add("carousel__item");
+    div.setAttribute("style","margin: 10px 0;")
+    // div.style.add("width: 250px;")
+
+    const img = document.createElement("img");
+    img.setAttribute("src", small);
+    img.setAttribute("referrerpolicy", "no-referrer");
+    img.setAttribute("style","width: 250px;height: 250px;")
+
+    div.appendChild(img);
+    divs.push(div);
+    const loadElement = sectionImage.querySelector("div.load");
+
+    loadElement.parentNode.replaceChild(div, loadElement);
+    // sectionImage.appendChild(div);
+};

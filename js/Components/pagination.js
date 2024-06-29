@@ -14,7 +14,7 @@ import { tableCapsule2 } from "./capsules/tableCapsule2.js";
 import { imageCapsule } from "./capsules/imagenes.js";
 import { informationCapsule, informationWebCapsule } from "./capsules/information.js";
 import { videoCapsule } from "./capsules/video.js";
-import { imageCrew } from "./crew/imagenes.js";
+import { imageCrew, imagePatch } from "./crew/imagenes.js";
 import { slideCrew } from "./crew/slideShow.js";
 import { tableCrew1 } from "./crew/tableCrew1.js";
 import { tableCrew2 } from "./crew/tableCrew2.js";
@@ -194,6 +194,7 @@ const getCrewId = async(e)=>{
     await videoCapsule(youtube_id,".section__information__1");
     await tableCrew1(crew[0]);
     await tableCrew2(crew[0]);
+    await imagePatch(crew[0]);
 
     // await load();
     // await tableCapsule1(crew[0])
@@ -208,7 +209,7 @@ const getCrewId = async(e)=>{
     // await informationWebcrew(wikipedia, "wikipedia")
     // let {launches:[{links:{youtube_id}}]} = crew[0];
     // await videocrew(youtube_id)
-    // await loadFinish();
+    await loadFinish();
 }
 
 export const paginationCrew = async(page=1, limit=4)=>{  

@@ -1,8 +1,8 @@
 import { defecto } from "../helper/filtros.js";
-import { getAllCapsules, getAllCores, getAllCrew, getAllLaunches, getAllRockets } from "../module/rocket.js"
+import { getAllCapsules, getAllCores, getAllCrew, getAllLaunches, getAllRockets, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/load.js";
-import { title } from "../Components/title.js";
+import { title, title2 } from "../Components/title.js";
 import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "../Components/rockets/information.js";
 import { tableRocketColum1 } from "../Components/rockets/TableRocketColum1.js";
 import { tableRocketColum2 } from "../Components/rockets/TableRocketColum2.js";
@@ -24,6 +24,36 @@ import { tableLunch2 } from "../Components/launches/tableLunch2.js";
 import { tableLunch3 } from "../Components/launches/tableLunch3.js";
 import { tableLunch4 } from "../Components/launches/tableLunch4.js";
 import { tableCores, tableCores2, tableCoresLaunch } from "../Components/cores/tableCores.js";
+import { table } from "../Components/company/tables.js";
+import { imageCompany } from "../Components/company/imagenes.js";
+
+export const paginationCompany = async () => {
+    let company = await getCompany(defecto);
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let a = document.createElement("a");
+    a.setAttribute("href", "#");
+    a.id = company.id;
+    a.textContent = "1";
+    a.addEventListener("click", (e)=>{
+        let a = e.target.parentElement.children;
+        for (let val of a) {
+            val.classList.remove('activo');
+        }
+        e.target.classList.add('activo');
+    })
+    div.appendChild(a)
+
+    let [a1] = div.children
+    a1.click();
+
+    await title2(company.name)
+    await table(company)
+    await imageCompany()
+
+    return div;
+}
 
 const getRocketsId = async (e) => {
     let a = e.target.parentElement.children;

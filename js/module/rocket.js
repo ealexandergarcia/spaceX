@@ -51,3 +51,17 @@ export const getAllLaunches = async (optio)=>{
     let data = await res.json();
     return data;
 }
+
+export const getAllCores = async (optio)=>{
+    const url ="https://api.spacexdata.com/v4/cores/query"
+    let config = {
+        headers:{
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(optio)
+    }
+    let res = await fetch(url, config);
+    let data = await res.json();
+    return data;
+}

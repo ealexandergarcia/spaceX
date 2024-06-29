@@ -1,5 +1,5 @@
 import { defecto } from "../helper/filtros.js";
-import { getAllCapsules, getAllCrew, getAllLaunches, getAllRockets } from "../module/rocket.js";
+import { getAllCapsules, getAllCores, getAllCrew, getAllLaunches, getAllRockets } from "../module/rocket.js";
 import { imageRockets } from "./rockets/imagenes.js";
 import { load, loadFinish } from "./load.js";
 import { title } from "./title.js";
@@ -337,6 +337,86 @@ export const paginationLaunches = async(page=1, limit=4)=>{
     end.innerHTML = "&raquo;";
     end.setAttribute("data-page", (page && nextPage) ? page+1 : 1)
     end.addEventListener("click", getLaunches)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1,a2,a3,a4, next] = div.children
+    a1.click();
+
+    return div;
+}
+const getCores = async(e)=>{
+    if(e.target.dataset.page){
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationCore(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+    
+    for(let val of a){
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    // let id =e.target.id;
+    // let capsuleData = {
+    //     "query": {
+    //         "_id": id
+    //     },
+    //     "options": {
+    //         "populate": [
+    //             "rocket",
+    //             "launchpad"
+    //         ]
+    //     }
+    // }
+
+    // let info = await getAllLaunches(capsuleData);
+    // let {docs:launches}= info;
+    // console.log("funciona");
+    // let {docs:crew}= info;
+    await load();
+
+    // await slideCrew(crew[0]);
+    // let {launches:[{links:{youtube_id}}]} = crew[0];
+    // await tableCrew1(crew[0]);
+    // await tableCrew2(crew[0]);
+    // await imagePatch(crew[0]);
+    // await loadFinish();
+}
+
+export const paginationCore = async(page=1, limit=4)=>{  
+    const allCrew = {
+        "options": {
+            page,
+            limit
+        }
+    } 
+     
+    let {docs, pagingCounter, totalPages, nextPage} = await getAllCores(allCrew)
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+    
+    let start = document.createElement("a");
+    start.setAttribute("href","#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page==1) ? totalPages : page-1)
+    start.addEventListener("click", getCores)
+    div.appendChild(start);
+    docs.forEach((val,id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href","#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getCores)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href","#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page+1 : 1)
+    end.addEventListener("click", getCores)
     div.appendChild(end);
     console.log(div);
     let [back, a1,a2,a3,a4, next] = div.children

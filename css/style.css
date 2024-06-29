@@ -337,12 +337,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+  gap: 10px;
   width: 80%;
   /* overflow: scroll; */
   height: 80%;
-  overflow-x: scroll;
-  scrollbar-width: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /* scrollbar-width: none; */
+  height: 100%;
 }
 
 .footer ul li {
@@ -356,6 +358,7 @@ body {
   align-items: center;
   color: var(--color--two);
   font-size: small;
+  width: 55px;
 }
 .select {
   padding: 0 0 2px 0;
@@ -363,6 +366,7 @@ body {
 }
 .footer img{
   width: 30px;
+  height: 30px;
 }
 .nav__information {
   /* background: red; */

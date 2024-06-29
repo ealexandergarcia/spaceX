@@ -13,11 +13,16 @@ import { tableCapsule1 } from "./capsules/tableCapsule1.js";
 import { tableCapsule2 } from "./capsules/tableCapsule2.js";
 import { imageCapsule } from "./capsules/imagenes.js";
 import { informationCapsule, informationWebCapsule } from "./capsules/information.js";
-import { videoCapsule } from "./capsules/video.js";
+import { videoCapsule } from "./video.js";
 import { imageCrew, imagePatch } from "./crew/imagenes.js";
 import { slideCrew } from "./crew/slideShow.js";
 import { tableCrew1 } from "./crew/tableCrew1.js";
 import { tableCrew2 } from "./crew/tableCrew2.js";
+import { imageLanches } from "./launches/imagenes.js";
+import { tableLunch1 } from "./launches/tableLunch1.js";
+import { tableLunch2 } from "./launches/tableLunch2.js";
+import { tableLunch3 } from "./launches/tableLunch3.js";
+import { tableLunch4 } from "./launches/tableLunch4.js";
 
 const getRocketsId = async (e) =>{
     let a = e.target.parentElement.children;
@@ -256,7 +261,7 @@ const getLaunches = async(e)=>{
     if(e.target.dataset.page){
         let paginacion = document.querySelector("#paginacion");
         paginacion.innerHTML = ""
-        paginacion.append(await paginationCrew(Number(e.target.dataset.page)))
+        paginacion.append(await paginationLaunches(Number(e.target.dataset.page)))
     }
     let a = e.target.parentElement.children;
     
@@ -281,14 +286,18 @@ const getLaunches = async(e)=>{
     let info = await getAllLaunches(capsuleData);
     let {docs:launches}= info;
     console.log("funciona");
-    console.log(launches);
     // let {docs:crew}= info;
-    // await load();
-    // await title(crew[0].name)
-    // await imageCrew(crew[0]);
+    await load();
+    await title(launches[0].name)
+    await imageLanches(launches[0]);
+    let {links:{youtube_id}} = launches[0];
+    await videoCapsule(youtube_id,".section__information__1");
+    await tableLunch1(launches[0]);
+    await tableLunch2(launches[0]);
+    await tableLunch3(launches[0]);
+    await tableLunch4(launches[0]);
     // await slideCrew(crew[0]);
     // let {launches:[{links:{youtube_id}}]} = crew[0];
-    // await videoCapsule(youtube_id,".section__information__1");
     // await tableCrew1(crew[0]);
     // await tableCrew2(crew[0]);
     // await imagePatch(crew[0]);

@@ -1,3 +1,15 @@
+export const getCompany = async (optio)=>{
+    const url ="https://api.spacexdata.com/v4/company"
+    let config = {
+        headers:{
+            "content-type": "application/json"
+        },
+        method: "GET"
+    }
+    let res = await fetch(url, config);
+    let data = await res.json();
+    return data;
+}
 export const getAllRockets = async (optio)=>{
     const url ="https://api.spacexdata.com/v4/rockets/query"
     let config = {

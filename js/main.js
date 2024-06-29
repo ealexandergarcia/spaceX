@@ -1,5 +1,5 @@
 import { load } from "./Components/load.js";
-import { paginationCapsules, paginationCore, paginationCrew, paginationLaunches, paginationRockets } from "./module/pagination.js";
+import { paginationCapsules, paginationCompany, paginationCore, paginationCrew, paginationLaunches, paginationRockets } from "./module/pagination.js";
 import { defecto, masa } from "./helper/filtros.js";
 import { getAllRockets } from "./module/rocket.js";
 
@@ -60,4 +60,13 @@ core.addEventListener("click", async(e)=>{
     paginacion.append(await paginationCore())
 })
 
-core.click();
+let company = document.querySelector("#company")
+company.addEventListener("click", async(e)=>{
+    await footerSelect(e, company)
+    let paginacion = document.querySelector("#paginacion");
+    paginacion.innerHTML = ""
+    paginacion.append(await paginationCompany())
+})
+
+
+company.click();

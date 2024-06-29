@@ -32,6 +32,7 @@ export const load = async()=>{
     `;
 
     let section__image = document.querySelector("#section__image")
+    section__image.removeAttribute("style")
     section__image.innerHTML = `
         <div class="load" style="height: 350px"></div>
     `;

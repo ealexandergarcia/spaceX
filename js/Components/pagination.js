@@ -117,7 +117,7 @@ const getCapsulesId = async(e)=>{
     await informationWebCapsule(wikipedia, "wikipedia")
     let {launches:[{links:{youtube_id}}]} = capsule[0];
     await videoCapsule(youtube_id,"#section__information__1")
-    // await loadFinish();
+    await loadFinish();
 }
 
 export const paginationCapsules = async(page=1, limit=4)=>{  

@@ -357,26 +357,26 @@ const getCores = async(e)=>{
     }
     e.target.classList.add('activo');
 
-    // let id =e.target.id;
-    // let capsuleData = {
-    //     "query": {
-    //         "_id": id
-    //     },
-    //     "options": {
-    //         "populate": [
-    //             "rocket",
-    //             "launchpad"
-    //         ]
-    //     }
-    // }
+    let id =e.target.id;
+    console.log("saasdasd");
+    console.log(id);
+    let coreData = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                "launches"
+            ]
+        }
+    }
 
-    // let info = await getAllLaunches(capsuleData);
-    // let {docs:launches}= info;
-    // console.log("funciona");
-    // let {docs:crew}= info;
+    let info = await getAllCores(coreData);
+    console.log("funciona");
+    let {docs:core}= info;
     await load();
 
-    // await slideCrew(crew[0]);
+    await title(core[0].serial);
     // let {launches:[{links:{youtube_id}}]} = crew[0];
     // await tableCrew1(crew[0]);
     // await tableCrew2(crew[0]);

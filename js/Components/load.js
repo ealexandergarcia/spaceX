@@ -13,6 +13,7 @@ export const load = async()=>{
     `;
 
     let section__information__1 = document.querySelector("#section__information__1")
+    section__information__1.removeAttribute("style")
     section__information__1.innerHTML = `
         <div class="load" style="height: 150px;"></div>
     `;

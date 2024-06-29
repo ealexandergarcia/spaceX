@@ -1,5 +1,5 @@
 import { load } from "./Components/load.js";
-import { paginationCapsules, paginationCrew, paginationRockets } from "./Components/pagination.js";
+import { paginationCapsules, paginationCrew, paginationLaunches, paginationRockets } from "./Components/pagination.js";
 import { defecto, masa } from "./helper/filtros.js";
 import { getAllRockets } from "./module/rocket.js";
 

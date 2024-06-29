@@ -38,3 +38,16 @@ export const getAllCrew = async (optio)=>{
     return data;
 }
 
+export const getAllLaunches = async (optio)=>{
+    const url ="https://api.spacexdata.com/v4/launches/query"
+    let config = {
+        headers:{
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(optio)
+    }
+    let res = await fetch(url, config);
+    let data = await res.json();
+    return data;
+}

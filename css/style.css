@@ -393,7 +393,7 @@ body {
   color: var(--color--five);
   text-decoration: none;
   float: left;
-  padding: 8px 14px;
+  padding: 8px 11px;
 }
 
 .buttom__paginacion a.activo {

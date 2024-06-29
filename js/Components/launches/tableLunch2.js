@@ -2,6 +2,7 @@ export const tableLunch2 = async (launch) => {
 
     const containerr = document.querySelector(".section__information__3");
     console.log(containerr);
+    containerr.setAttribute("style", "display: block;")
     const container = containerr.querySelector(".carousel__item");
     console.log(container);
   
@@ -37,5 +38,6 @@ export const tableLunch2 = async (launch) => {
     div.append(tableContainer);
     // container.append(tableContainer);
     let firstDiv = container.querySelector("div:first-child");
-      container.replaceChild(div, firstDiv);
+
+    container.replaceChild(div, firstDiv);
   };

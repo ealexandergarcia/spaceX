@@ -301,7 +301,7 @@ const getLaunches = async(e)=>{
     // await tableCrew1(crew[0]);
     // await tableCrew2(crew[0]);
     // await imagePatch(crew[0]);
-    // await loadFinish();
+    await loadFinish();
 }
 
 export const paginationLaunches = async(page=1, limit=4)=>{  

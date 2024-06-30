@@ -3,12 +3,8 @@ export const title = async(name)=>{
     header__title.innerHTML = "";
     header__title.textContent = name;
 }
-export const title3 = async(title)=>{
-    let header__title = document.querySelector("#header__title");
-    header__title.innerHTML = "";
-    header__title.textContent = title;
-}
-export const title2 = async() => {
+
+export const titleImage = async() => {
     let header__title = document.querySelector("#header__title");
     header__title.innerHTML = "";  // Limpiar el contenido existente
 

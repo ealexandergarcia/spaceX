@@ -12,6 +12,9 @@ export const load = async()=>{
         <div class="load"></div>
     `;
 
+    let section__information__2 = document.querySelector(".section__information__2")
+    section__information__2.removeAttribute("style")
+
     let section__information__1 = document.querySelector("#section__information__1")
     section__information__1.removeAttribute("style")
     section__information__1.innerHTML = `

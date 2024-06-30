@@ -1,8 +1,8 @@
 import { defecto } from "../helper/filtros.js";
 import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
-import { load, loadFinish } from "../Components/load.js";
-import { title, title2, title3 } from "../Components/title.js";
+import { load, loadFinish } from "../Components/common/load.js";
+import { title, titleImage } from "../Components/common/title.js";
 import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "../Components/rockets/information.js";
 import { tableRocketColum1 } from "../Components/rockets/TableRocketColum1.js";
 import { tableRocketColum2 } from "../Components/rockets/TableRocketColum2.js";
@@ -13,7 +13,7 @@ import { tableCapsule1 } from "../Components/capsules/tableCapsule1.js";
 import { tableCapsule2 } from "../Components/capsules/tableCapsule2.js";
 import { imageCapsule } from "../Components/capsules/imagenes.js";
 import { informationCapsule, informationWebCapsule } from "../Components/capsules/information.js";
-import { videoCapsule } from "../Components/video.js";
+import { videoCapsule } from "../Components/common/video.js";
 import { imageCrew, imagePatch } from "../Components/crew/imagenes.js";
 import { slideCrew } from "../Components/crew/slideShow.js";
 import { tableCrew1 } from "../Components/crew/tableCrew1.js";
@@ -28,7 +28,9 @@ import { table, tableCompany1, tableCompany2 } from "../Components/company/table
 import { imageCompany, imageCompany2 } from "../Components/company/imagenes.js";
 import { informationCompany, informationCompany2 } from "../Components/company/infomarion.js";
 import { descriptionHistory } from "../Components/histories/description.js";
-import { imageHistory2 } from "../Components/histories/imagenes.js";
+import { fillerImage, imagenCentral } from "../Components/common/imagenes.js";
+import { descriptionText } from "../Components/common/desciprionSection.js";
+import { informationTableLandpads, tableLandpadHeadquartes, tableLandpads, tableLandpadsAS } from "../Components/Landpads/tablesLandpads.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -39,7 +41,7 @@ export const paginationCompany = async () => {
     a.setAttribute("href", "#");
     a.id = company.id;
     a.textContent = "1";
-    a.addEventListener("click", (e)=>{
+    a.addEventListener("click", (e) => {
         let a = e.target.parentElement.children;
         for (let val of a) {
             val.classList.remove('activo');
@@ -51,7 +53,7 @@ export const paginationCompany = async () => {
     let [a1] = div.children
     a1.click();
 
-    await title2(company.name)
+    await titleImage()
     await table(company)
     await imageCompany()
     await imageCompany2()
@@ -401,21 +403,21 @@ const getCores = async (e) => {
             "_id": id
         },
         "options": {
-        "populate": [
-            {
-                "path": "launches",
-                "populate": [
-                    { "path": "rocket" },
-                    { "path": "payloads" }
-                ]
-            }
-        ]
-    }
+            "populate": [
+                {
+                    "path": "launches",
+                    "populate": [
+                        { "path": "rocket" },
+                        { "path": "payloads" }
+                    ]
+                }
+            ]
+        }
     }
     console.log(coreData);
 
     let info = await getAllCores(coreData);
-    localStorage.setItem("cores",JSON.stringify(info))
+    localStorage.setItem("cores", JSON.stringify(info))
     console.log("funciona");
     let { docs: core } = info;
     await load();
@@ -482,24 +484,38 @@ const getLandpads = async (e) => {
     }
     e.target.classList.add('activo');
 
+    // Configuraciones para la consulta del Api
     let id = e.target.id;
     let historyData = {
         "query": {
             "_id": id
+        },
+        "options": {
+            "populate": [
+                {
+                    "path": "launches"
+                }
+            ]
         }
     }
-    console.log(historyData);
 
+    // Informacion de la Api
     let info = await getAllLandpads(historyData);
-    console.log("funciona");
+
+    // Desestructuracion de la data
     let { docs: Landpad } = info;
-    console.log(Landpad);
-    // await load();
-    // await title3(history[0].title)
-    // await descriptionHistory(history[0])
-    // await imageCompany()
-    // await imageHistory2()
-    // await loadFinish();
+    let [{ images: { large } }] = Landpad;
+    // Callbacks
+    await load();
+    await title(Landpad[0].full_name)
+    await imagenCentral(large[0])
+    await descriptionText(Landpad[0].details)
+    await fillerImage();
+    await tableLandpads(Landpad[0]);
+    await tableLandpadsAS(Landpad[0]);
+    await informationTableLandpads(Landpad[0]);
+    await tableLandpadHeadquartes(Landpad[0]);
+    await loadFinish();
 }
 
 export const paginationLandpads = async (page = 1, limit = 4) => {
@@ -571,10 +587,10 @@ const getHistories = async (e) => {
     let { docs: history } = info;
     console.log(history[0].title);
     await load();
-    await title3(history[0].title)
+    await title(history[0].title)
     await descriptionHistory(history[0])
     await imageCompany()
-    await imageHistory2()
+    await fillerImage()
     await loadFinish();
 }
 

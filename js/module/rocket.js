@@ -77,3 +77,16 @@ export const getAllCores = async (optio)=>{
     let data = await res.json();
     return data;
 }
+export const getAllHistories = async (optio)=>{
+    const url ="https://api.spacexdata.com/v4/history/query"
+    let config = {
+        headers:{
+            "content-type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(optio)
+    }
+    let res = await fetch(url, config);
+    let data = await res.json();
+    return data;
+}

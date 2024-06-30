@@ -2,7 +2,7 @@ import { defecto } from "../helper/filtros.js";
 import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLaunches, getAllRockets, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/load.js";
-import { title, title2 } from "../Components/title.js";
+import { title, title2, title3 } from "../Components/title.js";
 import { informationFirstFlightRocket, informationLaunchCostRocket, informationRockets, informationWebRocket } from "../Components/rockets/information.js";
 import { tableRocketColum1 } from "../Components/rockets/TableRocketColum1.js";
 import { tableRocketColum2 } from "../Components/rockets/TableRocketColum2.js";
@@ -27,6 +27,8 @@ import { tableCores, tableCores2, tableCoresLaunch } from "../Components/cores/t
 import { table, tableCompany1, tableCompany2 } from "../Components/company/tables.js";
 import { imageCompany, imageCompany2 } from "../Components/company/imagenes.js";
 import { informationCompany, informationCompany2 } from "../Components/company/infomarion.js";
+import { descriptionHistory } from "../Components/histories/description.js";
+import { imageHistory2 } from "../Components/histories/imagenes.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -492,9 +494,13 @@ const getHistories = async (e) => {
     let info = await getAllHistories(historyData);
     console.log("funciona");
     let { docs: history } = info;
-    console.log(history);
+    console.log(history[0].title);
     await load();
-    // await loadFinish();
+    await title3(history[0].title)
+    await descriptionHistory(history[0])
+    await imageCompany()
+    await imageHistory2()
+    await loadFinish();
 }
 
 export const paginationHistory = async (page = 1, limit = 4) => {

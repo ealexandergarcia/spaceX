@@ -77,4 +77,4 @@ history.addEventListener("click", async(e)=>{
 })
 
 
-company.click();
+history.click();

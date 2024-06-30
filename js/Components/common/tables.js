@@ -1,3 +1,4 @@
+// Seccion izquierda superior
 export const table = async (rows, indicator, title) => {
 
       const container = document.createElement("div");

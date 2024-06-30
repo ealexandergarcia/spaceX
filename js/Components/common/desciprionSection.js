@@ -1,58 +1,32 @@
-export const descriptionText = async (data, rows) => {
-
+export const descriptionText = async (data) => {
     const container = document.createElement("div");
     container.classList.add("description__container");
-    container.setAttribute("style", "flex-direction: column;align-items: center;");
+    container.style.cssText = "flex-direction: column; align-items: center; margin: 0;";
 
     const descriptionContainer2 = document.createElement("div");
-    descriptionContainer2.classList.add("description__container2");
+    descriptionContainer2.classList.add("bg__card");
     descriptionContainer2.style.width = "80%";
 
     const tableContainer2 = document.createElement("div");
     tableContainer2.classList.add("table__container__1");
+    tableContainer2.style.padding = "0";
 
     const rowElement = document.createElement("div");
+    rowElement.style.margin = "0";
+
     const valueElement = document.createElement("strong");
+    valueElement.style.cssText = "text-align: center; overflow: auto; height: 100px; overflow-x: hidden;";
     valueElement.textContent = data;
-    valueElement.style.textAlign = "center";
+
     rowElement.append(valueElement);
     tableContainer2.append(rowElement);
-
-    const div = document.createElement("div");
-    div.classList.add("information__table__1");
-    div.classList.add("bg__card")
-    div.style.width = "30%";
-
-    const tableContainer = document.createElement("div");
-    tableContainer.classList.add("table__container__1");
-
-    const h3 = document.createElement("h3");
-    h3.textContent = "Headquarters ";
-    div.append(h3);
-
-    const hr = document.createElement("hr");
-    div.append(hr);
-
-    rows.forEach((row) => {
-        const rowElement = document.createElement("div");
-        const labelElement = document.createElement("span");
-        labelElement.textContent = row.label;
-        const valueElement = document.createElement("strong");
-        valueElement.textContent = row.value;
-        rowElement.append(labelElement, valueElement);
-        tableContainer.append(rowElement);
-    });
-
-    div.append(tableContainer);
-
     descriptionContainer2.append(tableContainer2);
     container.append(descriptionContainer2);
 
     const descriptionItem = document.querySelector("#section__information__1");
-    descriptionItem.setAttribute("style", "flex-direction: column;")
+    descriptionItem.style.flexDirection = "column";
     descriptionItem.innerHTML = '';  // Limpiar el contenido existente
     descriptionItem.append(container);
-    descriptionItem.append(div);
 
     const loadElement = descriptionItem.querySelector("div.load");
     if (loadElement) {

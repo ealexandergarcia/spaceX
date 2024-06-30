@@ -24,8 +24,8 @@ import { tableLunch2 } from "../Components/launches/tableLunch2.js";
 import { tableLunch3 } from "../Components/launches/tableLunch3.js";
 import { tableLunch4 } from "../Components/launches/tableLunch4.js";
 import { tableCores, tableCores2, tableCoresLaunch } from "../Components/cores/tableCores.js";
-import { table } from "../Components/company/tables.js";
-import { imageCompany } from "../Components/company/imagenes.js";
+import { table, tableCompany1, tableCompany2 } from "../Components/company/tables.js";
+import { imageCompany, imageCompany2 } from "../Components/company/imagenes.js";
 import { informationCompany, informationCompany2 } from "../Components/company/infomarion.js";
 
 export const paginationCompany = async () => {
@@ -52,8 +52,11 @@ export const paginationCompany = async () => {
     await title2(company.name)
     await table(company)
     await imageCompany()
+    await imageCompany2()
     await informationCompany(company)
     await informationCompany2(company)
+    await tableCompany1(company)
+    await tableCompany2(company)
 
     return div;
 }

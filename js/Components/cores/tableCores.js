@@ -1,4 +1,4 @@
-import { table } from "../tables.js";
+import { table } from "../common/tables.js"; 
 
 export const tableCores = async (core) => {
 

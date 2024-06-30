@@ -42,17 +42,17 @@ export const informationCompany2 = async (company) => {
     descriptionItem.innerHTML = ""; // Limpiar el contenido existente
 
     const rows = [
-        { img: "storage/img/icons/founder.svg", title: "website", text:"Space X" ,value: links.website },
-        { img: "storage/img/icons/founded.svg", title: "Flickr", text:"Official SpaceX Photos" ,value: links.flickr },
-        { img: "storage/img/icons/employees.svg", title: "Twitter", text:"@SpaceX" ,value: links.twitter },
-        { img: "storage/img/icons/valuation.svg", title: "Elon Twitter", text:"@elonmusk" ,value: links.elon_twitter }
+        { img: "storage/img/icons/SpaceX2.svg", title: "website", text:"Space X" ,value: links.website },
+        { img: "storage/img/icons/Flickr.svg", title: "Flickr", text:"Official SpaceX Photos" ,value: links.flickr },
+        { img: "storage/img/icons/Twitter.svg", title: "Twitter", text:"@SpaceX" ,value: links.twitter },
+        { img: "storage/img/icons/Twitter.svg", title: "Elon Twitter", text:"@elonmusk" ,value: links.elon_twitter }
     ];
 
     rows.forEach((row) => {
         const container = document.createElement("div");
         container.classList.add("description__container");
         container.classList.add("bg__card");
-        container.setAttribute("style","padding: 15px;")
+        container.setAttribute("style","padding: 15px; align-items: center;")
 
         const img = document.createElement("img");
         img.style.width = "40px";

@@ -1,4 +1,4 @@
-import { load } from "./Components/load.js";
+import { load } from "./Components/common/load.js"; 
 import { paginationCapsules, paginationCompany, paginationCore, paginationCrew, paginationHistory, paginationLandpads, paginationLaunches, paginationRockets } from "./module/pagination.js";
 import { defecto, masa } from "./helper/filtros.js";
 import { getAllRockets } from "./module/rocket.js";

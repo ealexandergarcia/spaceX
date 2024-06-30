@@ -1,5 +1,5 @@
 import { defecto } from "../helper/filtros.js";
-import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLaunches, getAllRockets, getCompany } from "../module/rocket.js"
+import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/load.js";
 import { title, title2, title3 } from "../Components/title.js";
@@ -468,6 +468,81 @@ export const paginationCore = async (page = 1, limit = 4) => {
 
     return div;
 }
+
+const getLandpads = async (e) => {
+    if (e.target.dataset.page) {
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationLandpads(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+
+    for (let val of a) {
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    let id = e.target.id;
+    let historyData = {
+        "query": {
+            "_id": id
+        }
+    }
+    console.log(historyData);
+
+    let info = await getAllLandpads(historyData);
+    console.log("funciona");
+    let { docs: Landpad } = info;
+    console.log(Landpad);
+    // await load();
+    // await title3(history[0].title)
+    // await descriptionHistory(history[0])
+    // await imageCompany()
+    // await imageHistory2()
+    // await loadFinish();
+}
+
+export const paginationLandpads = async (page = 1, limit = 4) => {
+    const allHistory = {
+        "options": {
+            page,
+            limit
+        }
+    }
+
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllLandpads(allHistory)
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let start = document.createElement("a");
+    start.setAttribute("href", "#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page == 1) ? totalPages : page - 1)
+    start.addEventListener("click", getLandpads)
+    div.appendChild(start);
+    docs.forEach((val, id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getLandpads)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href", "#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
+    end.addEventListener("click", getLandpads)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1, a2, a3, a4, next] = div.children
+    a1.click();
+
+    return div;
+}
+
 const getHistories = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");

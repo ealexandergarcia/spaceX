@@ -26,6 +26,7 @@ import { tableLunch4 } from "../Components/launches/tableLunch4.js";
 import { tableCores, tableCores2, tableCoresLaunch } from "../Components/cores/tableCores.js";
 import { table } from "../Components/company/tables.js";
 import { imageCompany } from "../Components/company/imagenes.js";
+import { informationCompany, informationCompany2 } from "../Components/company/infomarion.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -51,6 +52,8 @@ export const paginationCompany = async () => {
     await title2(company.name)
     await table(company)
     await imageCompany()
+    await informationCompany(company)
+    await informationCompany2(company)
 
     return div;
 }

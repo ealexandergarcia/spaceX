@@ -610,13 +610,7 @@ const getDragons = async (e) => {
     await tableCapsule(Dragon[0]);
     await tableDimensions(Dragon[0]);
     await tableThrusters(Dragon[0]);
-    // await fillerImage("Dragon.gif");
-    // await tableDragonGeneralDetails(Dragon[0]);
-    // await tableDragonLocationMovement(Dragon[0]);
-    // await tableDragonPhysicalCharacteristics(Dragon[0]);
-    // await tableDragonRoles(Dragon[0]);
-    // await informationTableDragons(Dragon[0])
-    // await loadFinish();
+    await loadFinish();
 }
 
 export const paginationDragon = async (page = 1,limit = 4) => {

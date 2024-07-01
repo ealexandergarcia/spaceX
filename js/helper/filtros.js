@@ -3,7 +3,7 @@ export const defecto = {
         "select": {
 
         },
-        "sort":{
+        "sort": {
 
         }
     }
@@ -15,7 +15,7 @@ export const masa = {
             "name": 1,
             "mass": 1
         },
-        "sort":{
+        "sort": {
             "mass.kg": "desc"
         },
         "limit": 1
@@ -28,7 +28,7 @@ export const carga = {
             "name": 1,
             "payload_weights": 1
         },
-        "sort":{
+        "sort": {
             "payload_weights.kg": "desc"
         },
     }
@@ -78,7 +78,7 @@ export const SecondStageHeightTotal = {
     }
 }
 
-export const RocketEngineTotal={
+export const RocketEngineTotal = {
     "options": {
         "select": {
             "engines": 1
@@ -88,7 +88,7 @@ export const RocketEngineTotal={
         }
     }
 }
-export const RocketEngineVacuumTotal={
+export const RocketEngineVacuumTotal = {
     "options": {
         "select": {
             "engines": 1
@@ -97,4 +97,71 @@ export const RocketEngineVacuumTotal={
             "engines.thrust_vacuum": "desc"
         }
     }
+}
+
+export const pagination = (page, limit) => {
+    let optionPaginarion = {
+        "options": {
+            page,
+            limit
+        }
+    }
+    return optionPaginarion;
+}
+
+export const basicQuery = (id) => {
+    let basicQuery = {
+        "query": {
+            "_id": id
+        }
+    }
+    return basicQuery;
+}
+export const launchesQuery = (id) => {
+    let launchesQuery = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                {
+                    "path": "launches"
+                }
+            ]
+        }
+    }
+    return launchesQuery;
+}
+export const rocketLaunchpadQuery = (id) => {
+    let rocketLaunchpadQuery = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                "rocket",
+                "launchpad"
+            ]
+        }
+    }
+    return rocketLaunchpadQuery;
+}
+export const extendedLaunchesQuery = (id) => {
+    let extendedLaunchesQuery = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                {
+                    "path": "launches",
+                    "populate": [
+                        { "path": "rocket" },
+                        { "path": "payloads" }
+                    ]
+                }
+            ]
+        }
+    }
+    return extendedLaunchesQuery;
 }

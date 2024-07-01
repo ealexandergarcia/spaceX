@@ -29,10 +29,11 @@ export const fillerImage = async (imgName) => {
     if (!sectionImage || !sectionImage2) return;
 
     sectionImage.setAttribute("style", " display:block;");
-    sectionImage2.setAttribute("style", " display:block;transform: scaleX(-1);");
+    sectionImage2.setAttribute("style", " display:block;");
 
     const div = document.createElement("div");
     div.classList.add("carousel__item");
+    div.setAttribute("style","transform: scaleX(-1);")
 
     const img = document.createElement("img");
     img.setAttribute("src",  `../storage/img/${imgName} `);

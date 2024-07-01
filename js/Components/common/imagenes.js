@@ -33,17 +33,17 @@ export const fillerImage = async (imgName) => {
 
     const div = document.createElement("div");
     div.classList.add("carousel__item");
-    div.setAttribute("style","transform: scaleX(-1);")
-
+    
     const img = document.createElement("img");
     img.setAttribute("src",  `../storage/img/${imgName} `);
     img.setAttribute("referrerpolicy", "no-referrer");
     img.setAttribute("style", "width: 250px;height: 250px;");
-
+    
     div.appendChild(img);
-
+    
     const carousel__item = sectionImage.querySelector(".carousel__item");
     const carousel__item2 = sectionImage2.querySelector(".carousel__item");
+    carousel__item2.setAttribute("style","transform: scaleX(-1);")
 
     if (!carousel__item || !carousel__item2) return;
 

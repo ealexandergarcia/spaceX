@@ -28,8 +28,8 @@ export const fillerImage = async (imgName) => {
 
     if (!sectionImage || !sectionImage2) return;
 
-    sectionImage.setAttribute("style", "height: 260px; display:block;");
-    sectionImage2.setAttribute("style", "height: 260px; display:block;transform: scaleX(-1);");
+    sectionImage.setAttribute("style", " display:block;");
+    sectionImage2.setAttribute("style", " display:block;transform: scaleX(-1);");
 
     const div = document.createElement("div");
     div.classList.add("carousel__item");

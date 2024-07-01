@@ -419,7 +419,7 @@ const getLandpads = async (e) => {
     await title(Landpad[0].full_name)
     await imagenCentral(large[0])
     await descriptionText(Landpad[0].details)
-    await fillerImage();
+    await fillerImage("cohete.gif");
     await tableLandpads(Landpad[0]);
     await tableLandpadsAS(Landpad[0]);
     await informationTableLandpads(Landpad[0]);
@@ -485,7 +485,7 @@ const getHistories = async (e) => {
     await title(history[0].title)
     await descriptionHistory(history[0])
     await imageCompany()
-    await fillerImage()
+    await fillerImage("cohete.gif")
     await loadFinish();
 }
 
@@ -523,3 +523,62 @@ export const paginationHistory = async (page = 1, limit = 4) => {
     return div;
 }
 
+const getShips = async (e) => {
+    if (e.target.dataset.page) {
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationShips(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+
+    for (let val of a) {
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    // Configuraciones para la consulta del Api
+    let id = e.target.id;
+
+    // Informacion de la Api
+    let info = await getAllShips(launchesQuery(id));
+
+    // Desestructuracion de la data
+    let { docs: ship } = info;
+
+    // Callbacks
+
+}
+
+export const paginationShips = async (page = 1,limit = 4) => {
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllShips(pagination(page,limit))
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let start = document.createElement("a");
+    start.setAttribute("href", "#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page == 1) ? totalPages : page - 1)
+    start.addEventListener("click", getShips)
+    div.appendChild(start);
+    docs.forEach((val, id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getShips)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href", "#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
+    end.addEventListener("click", getShips)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1, a2, a3, a4, next] = div.children
+    a1.click();
+
+    return div;
+}

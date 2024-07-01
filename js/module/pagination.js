@@ -1,5 +1,5 @@
-import { basicQuery, defecto, extendedLaunchesQuery, launchesQuery, pagination, rocketLaunchpadQuery } from "../helper/filtros.js";
-import { getAllCapsules, getAllCores, getAllCrew, getAllDragons, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getAllShips, getCompany } from "../module/rocket.js"
+import { basicQuery, defecto, extendedLaunchesQuery, launchesQuery, pagination, rocketLaunchpadQuery, rocketsQuery } from "../helper/filtros.js";
+import { getAllRockets, getAlldata, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/common/load.js";
 import { title, titleImage } from "../Components/common/title.js";
@@ -33,6 +33,7 @@ import { descriptionText } from "../Components/common/desciprionSection.js";
 import { informationTableLandpads, tableLandpadHeadquartes, tableLandpads, tableLandpadsAS } from "../Components/Landpads/tablesLandpads.js";
 import { informationTableShips, tableShipGeneralDetails, tableShipLocationMovement, tableShipPhysicalCharacteristics, tableShipRoles } from "../Components/ships/tableShip.js";
 import { tableCapsule, tableDimensions, tableDragonHeatShield, tableLaunchPayload, tableReturnPayload, tableThrusters, tableTrunk } from "../Components/dragons/tableDragons.js";
+import { tableLaunchStats, tableLocationInfo, tableRocketInfo, tableStatusDetails, tableTimezoneInfo } from "../Components/launchpad/launchpadTable.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -134,7 +135,7 @@ const getCapsulesId = async (e) => {
     e.target.classList.add('activo');
     let id = e.target.id;
 
-    let info = await getAllCapsules(launchesQuery(id));
+    let info = await getAlldata(launchesQuery(id),"capsules");
     let { docs: capsule } = info;
     await load();
     await title(capsule[0].serial)
@@ -155,7 +156,7 @@ const getCapsulesId = async (e) => {
 
 export const paginationCapsules = async (page = 1, limit = 4) => {
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllCapsules(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"capsules")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -201,7 +202,7 @@ const getCrewId = async (e) => {
 
     let id = e.target.id;
 
-    let info = await getAllCrew(launchesQuery(id));
+    let info = await getAlldata(launchesQuery(id),"crew");
     let { docs: crew } = info;
     await load();
     await title(crew[0].name)
@@ -217,7 +218,7 @@ const getCrewId = async (e) => {
 
 export const paginationCrew = async (page = 1, limit = 4) => {
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllCrew(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"crew")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -263,7 +264,7 @@ const getLaunches = async (e) => {
 
     let id = e.target.id;
 
-    let info = await getAllLaunches(rocketLaunchpadQuery(id));
+    let info = await getAlldata(rocketLaunchpadQuery(id),"launches");
     let { docs: launches } = info;
     // let {docs:crew}= info;
     await load();
@@ -280,7 +281,7 @@ const getLaunches = async (e) => {
 
 export const paginationLaunches = async (page = 1, limit = 4) => {
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllLaunches(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"launches")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -326,7 +327,7 @@ const getCores = async (e) => {
 
     let id = e.target.id;
 
-    let info = await getAllCores(extendedLaunchesQuery(id));
+    let info = await getAlldata(extendedLaunchesQuery(id),"cores");
     localStorage.setItem("cores", JSON.stringify(info))
     console.log("funciona");
     let { docs: core } = info;
@@ -342,7 +343,7 @@ const getCores = async (e) => {
 
 export const paginationCore = async (page = 1, limit = 4) => {
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllCores(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"cores")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -392,7 +393,7 @@ const getLandpads = async (e) => {
     let id = e.target.id;
 
     // Informacion de la Api
-    let info = await getAllLandpads(launchesQuery(id));
+    let info = await getAlldata(launchesQuery(id),"landpads");
 
     // Desestructuracion de la data
     let { docs: Landpad } = info;
@@ -412,7 +413,7 @@ const getLandpads = async (e) => {
 
 export const paginationLandpads = async (page = 1, limit = 4) => {
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllLandpads(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"landpads")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -460,7 +461,7 @@ const getHistories = async (e) => {
 
     let id = e.target.id;
 
-    let info = await getAllHistories(basicQuery(id));
+    let info = await getAlldata(basicQuery(id),"history");
     console.log("funciona");
     let { docs: history } = info;
     console.log(history[0].title);
@@ -473,7 +474,7 @@ const getHistories = async (e) => {
 }
 
 export const paginationHistory = async (page = 1, limit = 4) => {
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllHistories(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"history")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -523,7 +524,7 @@ const getShips = async (e) => {
     let id = e.target.id;
 
     // Informacion de la Api
-    let info = await getAllShips(launchesQuery(id));
+    let info = await getAlldata(launchesQuery(id),"ships");
 
     // Desestructuracion de la data
     let { docs: ship } = info;
@@ -544,7 +545,7 @@ const getShips = async (e) => {
 }
 
 export const paginationShips = async (page = 1,limit = 4) => {
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllShips(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"ships")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -593,7 +594,7 @@ const getDragons = async (e) => {
     let id = e.target.id;
 
     // Informacion de la Api
-    let info = await getAllDragons(basicQuery(id));
+    let info = await getAlldata(basicQuery(id),"dragons");
 
     // Desestructuracion de la data
     let { docs: Dragon } = info;
@@ -614,7 +615,7 @@ const getDragons = async (e) => {
 }
 
 export const paginationDragon = async (page = 1,limit = 4) => {
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllDragons(pagination(page,limit))
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"dragons")
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -639,6 +640,76 @@ export const paginationDragon = async (page = 1,limit = 4) => {
     end.innerHTML = "&raquo;";
     end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
     end.addEventListener("click", getDragons)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1, a2, a3, a4, next] = div.children
+    a1.click();
+    return div;
+}
+
+const getLaunchpad = async (e) => {
+    if (e.target.dataset.page) {
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationLaunchpad(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+
+    for (let val of a) {
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    // Configuraciones para la consulta del Api
+    let id = e.target.id;
+
+    // Informacion de la Api
+    let info = await getAlldata(rocketsQuery(id),"launchpads");
+
+    // Desestructuracion de la data
+    let { docs: Launchpad } = info;
+
+    // Callbacks
+    await load();
+    await title(Launchpad[0].full_name)
+    await descriptionText(Launchpad[0].details)
+    await imagenCentral(Launchpad[0].images.large)
+    await tableLocationInfo(Launchpad[0]);
+    await tableLaunchStats(Launchpad[0]);
+    await tableTimezoneInfo(Launchpad[0]);
+    await tableStatusDetails(Launchpad[0]);
+    await tableRocketInfo(Launchpad[0]);
+    await fillerImage("launchpad.gif");
+
+    // await loadFinish();
+}
+
+export const paginationLaunchpad = async (page = 1,limit = 4) => {
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"launchpads")
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let start = document.createElement("a");
+    start.setAttribute("href", "#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page == 1) ? totalPages : page - 1)
+    start.addEventListener("click", getLaunchpad)
+    div.appendChild(start);
+    docs.forEach((val, id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getLaunchpad)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href", "#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
+    end.addEventListener("click", getLaunchpad)
     div.appendChild(end);
     console.log(div);
     let [back, a1, a2, a3, a4, next] = div.children

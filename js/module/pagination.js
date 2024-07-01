@@ -31,6 +31,7 @@ import { descriptionHistory } from "../Components/histories/description.js";
 import { fillerImage, imagenCentral } from "../Components/common/imagenes.js";
 import { descriptionText } from "../Components/common/desciprionSection.js";
 import { informationTableLandpads, tableLandpadHeadquartes, tableLandpads, tableLandpadsAS } from "../Components/Landpads/tablesLandpads.js";
+import { informationTableShips, tableShipGeneralDetails, tableShipLocationMovement, tableShipPhysicalCharacteristics, tableShipRoles } from "../Components/ships/tableShip.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -546,7 +547,18 @@ const getShips = async (e) => {
     let { docs: ship } = info;
 
     // Callbacks
-
+    await load();
+    await title(ship[0].name)
+    await imagenCentral(ship[0].image)
+    await fillerImage("ship.gif");
+    await tableLandpads(ship[0]);
+    await tableShipGeneralDetails(ship[0]);
+    await tableShipLocationMovement(ship[0]);
+    await tableShipPhysicalCharacteristics(ship[0]);
+    await tableShipRoles(ship[0]);
+    await videoCapsule("dMyNj8IMEes", "#section__information__1")
+    await informationTableShips(ship[0])
+    await loadFinish();
 }
 
 export const paginationShips = async (page = 1,limit = 4) => {

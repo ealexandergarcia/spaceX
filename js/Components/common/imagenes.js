@@ -22,20 +22,20 @@ export const imagenCentral = async (data) => {
     // sectionImage.appendChild(div);
 };
 
-export const fillerImage = async () => {    
+export const fillerImage = async (imgName) => {    
     const sectionImage = document.querySelector(".section__information__2");
     const sectionImage2 = document.querySelector(".section__information__3");
 
     if (!sectionImage || !sectionImage2) return;
 
     sectionImage.setAttribute("style", "height: 260px; display:block;");
-    sectionImage2.setAttribute("style", "height: 260px; display:block;");
+    sectionImage2.setAttribute("style", "height: 260px; display:block;transform: scaleX(-1);");
 
     const div = document.createElement("div");
     div.classList.add("carousel__item");
 
     const img = document.createElement("img");
-    img.setAttribute("src", "../storage/img/cohete.gif");
+    img.setAttribute("src",  `../storage/img/${imgName} `);
     img.setAttribute("referrerpolicy", "no-referrer");
     img.setAttribute("style", "width: 250px;height: 250px;");
 

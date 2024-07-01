@@ -1,5 +1,5 @@
 import { basicQuery, defecto, extendedLaunchesQuery, launchQuery, launchesQuery, pagination, rocketLaunchpadQuery, rocketsQuery } from "../helper/filtros.js";
-import { getAllRockets, getAlldata, getCompany } from "../module/rocket.js"
+import { getAllRockets, getAlldata, getdataNoPagination } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/common/load.js";
 import { title, titleImage } from "../Components/common/title.js";
@@ -35,9 +35,11 @@ import { informationTableShips, tableShipGeneralDetails, tableShipLocationMoveme
 import { tableCapsule, tableDimensions, tableDragonHeatShield, tableLaunchPayload, tableReturnPayload, tableThrusters, tableTrunk } from "../Components/dragons/tableDragons.js";
 import { tableLaunchStats, tableLocationInfo, tableRocketInfo, tableStatusDetails, tableTimezoneInfo } from "../Components/launchpad/launchpadTable.js";
 import { tablePayloadDragonInfo, tablePayloadGeneralInfo, tablePayloadOrbitInfo, tablePayloadPhysicalCharacteristics } from "../Components/payloads/payloadsTables.js";
+import { informationTableRoadster, tableTeslaRoadsterDistancesAndSpeeds, tableTeslaRoadsterGeneralInfo, tableTeslaRoadsterOrbitInfo } from "../Components/roadster/roadsterTables.js";
 
+// Company
 export const paginationCompany = async () => {
-    let company = await getCompany(defecto);
+    let company = await getdataNoPagination("company");
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
 
@@ -69,6 +71,7 @@ export const paginationCompany = async () => {
     return div;
 }
 
+// Rockets
 const getRocketsId = async (e) => {
     let a = e.target.parentElement.children;
 
@@ -122,6 +125,7 @@ export const paginationRockets = async () => {
     return div;
 }
 
+// Capsules
 const getCapsulesId = async (e) => {
 
     if (e.target.dataset.page) {
@@ -188,6 +192,7 @@ export const paginationCapsules = async (page = 1, limit = 4) => {
     return div;
 }
 
+// Crew
 const getCrewId = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -250,6 +255,8 @@ export const paginationCrew = async (page = 1, limit = 4) => {
 
     return div;
 }
+
+// Launches
 const getLaunches = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -313,6 +320,8 @@ export const paginationLaunches = async (page = 1, limit = 4) => {
 
     return div;
 }
+
+// Cores
 const getCores = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -377,6 +386,7 @@ export const paginationCore = async (page = 1, limit = 4) => {
     return div;
 }
 
+// Landpads
 const getLandpads = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -447,6 +457,7 @@ export const paginationLandpads = async (page = 1, limit = 4) => {
     return div;
 }
 
+// Histories
 const getHistories = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -508,6 +519,7 @@ export const paginationHistory = async (page = 1, limit = 4) => {
     return div;
 }
 
+// Ships
 const getShips = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -578,6 +590,8 @@ export const paginationShips = async (page = 1,limit = 4) => {
 
     return div;
 }
+
+// Dragons
 const getDragons = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -648,6 +662,7 @@ export const paginationDragon = async (page = 1,limit = 4) => {
     return div;
 }
 
+// Launchpad
 const getLaunchpad = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -719,6 +734,7 @@ export const paginationLaunchpad = async (page = 1,limit = 4) => {
     return div;
 }
 
+// Payloads
 const getPayloads = async (e) => {
     if (e.target.dataset.page) {
         let paginacion = document.querySelector("#paginacion");
@@ -788,5 +804,48 @@ export const paginationPayloads = async (page = 1,limit = 4) => {
     let [back, a1, a2, a3, a4, next] = div.children
     a1.click();
 
+    return div;
+}
+
+// Roadster
+export const paginationRoadster = async () => {
+    // Peticion al api
+    let Roadster = await getdataNoPagination("roadster");
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let a = document.createElement("a");
+    a.setAttribute("href", "#");
+    a.id = Roadster.id;
+    a.textContent = "1";
+    a.addEventListener("click", (e) => {
+        let a = e.target.parentElement.children;
+        for (let val of a) {
+            val.classList.remove('activo');
+        }
+        e.target.classList.add('activo');
+    })
+    div.appendChild(a)
+
+    let [a1] = div.children
+    a1.click();
+
+    // Desestructuracion de la data
+    let {video} = Roadster;
+    const videoID = video.includes('youtu.be/') ? video.split('youtu.be/')[1] : video.split('v=')[1].split('&')[0];
+    console.log(videoID);
+    // Callbacks
+    await load();
+    await title(Roadster.name)
+    await descriptionText(Roadster.details)
+    await videoCapsule(videoID, "#description__item")
+    await informationTableRoadster(Roadster)
+    await imageRockets(Roadster.flickr_images);
+    await tableTeslaRoadsterGeneralInfo(Roadster)
+    await tableTeslaRoadsterOrbitInfo(Roadster)
+    await tableTeslaRoadsterDistancesAndSpeeds(Roadster)
+    await fillerImage("roadster.gif");
+
+    await loadFinish();
     return div;
 }

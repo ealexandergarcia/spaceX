@@ -195,3 +195,22 @@ export const extendedLaunchesQuery = (id) => {
     }
     return extendedLaunchesQuery;
 }
+export const extendedLaunchQuery = (id) => {
+    let extendedLaunchQuery = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                {
+                    "path": "launch",
+                    "populate": [
+                        { "path": "rocket" },
+                        { "path": "launchpad" }
+                    ]
+                }
+            ]
+        }
+    }
+    return extendedLaunchQuery;
+}

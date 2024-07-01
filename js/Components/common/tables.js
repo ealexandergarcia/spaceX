@@ -3,6 +3,7 @@ export const table = async (rows, indicator, title) => {
 
   const container = document.createElement("div");
   container.classList.add("description__container");
+  container.classList.add("bg__card");
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";

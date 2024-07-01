@@ -364,19 +364,16 @@ body {
 
 .footer ul {
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   gap: 10px;
-  width: 71%;
-  /* overflow: scroll; */
   height: 80%;
   overflow-x: auto;
   overflow-y: hidden;
-  /* scrollbar-width: none; */
   height: 53%;
   position: absolute;
   bottom: 4px;
   left: 14.3%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .footer ul li {

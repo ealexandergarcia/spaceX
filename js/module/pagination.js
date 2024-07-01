@@ -1,4 +1,4 @@
-import { basicQuery, defecto, extendedLaunchesQuery, launchQuery, launchesQuery, pagination, rocketLaunchpadQuery, rocketsQuery } from "../helper/filtros.js";
+import { basicQuery, defecto, extendedLaunchQuery, extendedLaunchesQuery, launchQuery, launchesQuery, pagination, rocketLaunchpadQuery, rocketsQuery } from "../helper/filtros.js";
 import { getAllRockets, getAlldata, getdataNoPagination } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/common/load.js";
@@ -36,6 +36,7 @@ import { tableCapsule, tableDimensions, tableDragonHeatShield, tableLaunchPayloa
 import { tableLaunchStats, tableLocationInfo, tableRocketInfo, tableStatusDetails, tableTimezoneInfo } from "../Components/launchpad/launchpadTable.js";
 import { tablePayloadDragonInfo, tablePayloadGeneralInfo, tablePayloadOrbitInfo, tablePayloadPhysicalCharacteristics } from "../Components/payloads/payloadsTables.js";
 import { informationTableRoadster, tableTeslaRoadsterDistancesAndSpeeds, tableTeslaRoadsterGeneralInfo, tableTeslaRoadsterOrbitInfo } from "../Components/roadster/roadsterTables.js";
+import { tableRocketCoreLandingDetails, tableSpaceTrackGeneralInfo, tableSpaceTrackOrbitParameters, tableSpaceTrackTLEDetails, tableStarlinkMissionInfo } from "../Components/starlink/starlinkTables.js";
 
 // Company
 export const paginationCompany = async () => {
@@ -696,8 +697,7 @@ const getLaunchpad = async (e) => {
     await tableStatusDetails(Launchpad[0]);
     await tableRocketInfo(Launchpad[0]);
     await fillerImage("launchpad.gif");
-
-    // await loadFinish();
+    await loadFinish();
 }
 
 export const paginationLaunchpad = async (page = 1,limit = 4) => {
@@ -849,3 +849,78 @@ export const paginationRoadster = async () => {
     await loadFinish();
     return div;
 }
+
+// Starlink
+const getStarlink = async (e) => {
+    if (e.target.dataset.page) {
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationStarlink(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+
+    for (let val of a) {
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    // Configuraciones para la consulta del Api
+    let id = e.target.id;
+
+    // Informacion de la Api
+    let info = await getAlldata(extendedLaunchQuery(id),"starlink");
+
+    // Desestructuracion de la data
+    let { docs: Starlink } = info;
+    let { spaceTrack } = Starlink[0];
+    let { launch } = Starlink[0];
+    let { OBJECT_NAME } = spaceTrack;
+
+    // Callbacks
+    await load();
+
+    await title(OBJECT_NAME)
+    await tableSpaceTrackGeneralInfo(spaceTrack)
+    await tableSpaceTrackTLEDetails(spaceTrack)
+    await tableSpaceTrackOrbitParameters(spaceTrack)
+    await tableStarlinkMissionInfo(launch)
+    await tableRocketCoreLandingDetails(launch)
+    await imagenCentral("./storage/img/satellites.gif")
+    await fillerImage("satellites2.gif");
+    await loadFinish();
+}
+
+export const paginationStarlink = async (page = 1,limit = 4) => {
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"starlink")
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let start = document.createElement("a");
+    start.setAttribute("href", "#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page == 1) ? totalPages : page - 1)
+    start.addEventListener("click", getStarlink)
+    div.appendChild(start);
+    docs.forEach((val, id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getStarlink)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href", "#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
+    end.addEventListener("click", getStarlink)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1, a2, a3, a4, next] = div.children
+    a1.click();
+
+    return div;
+}
+

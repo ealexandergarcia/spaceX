@@ -1,5 +1,5 @@
-export const getCompany = async (optio)=>{
-    const url ="https://api.spacexdata.com/v4/company"
+export const getdataNoPagination = async (optio)=>{
+    const url =`https://api.spacexdata.com/v4/${optio}`
     let config = {
         headers:{
             "content-type": "application/json"

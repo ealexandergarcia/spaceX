@@ -15,7 +15,7 @@ export const descriptionText = async (data) => {
     rowElement.style.margin = "0";
 
     const valueElement = document.createElement("strong");
-    valueElement.style.cssText = "text-align: center;overflow: hidden auto;height: 100px;align-content: center;padding: 10px;";
+    valueElement.style.cssText = "text-align: center;overflow: hidden auto;/* height: 120px; */align-content: center;padding: 10px;max-height: 120px;height: auto;";
     valueElement.textContent = data;
 
     rowElement.append(valueElement);

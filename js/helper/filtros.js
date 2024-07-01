@@ -132,6 +132,21 @@ export const launchesQuery = (id) => {
     }
     return launchesQuery;
 }
+export const launchQuery = (id) => {
+    let launchQuery = {
+        "query": {
+            "_id": id
+        },
+        "options": {
+            "populate": [
+                {
+                    "path": "launch"
+                }
+            ]
+        }
+    }
+    return launchQuery;
+}
 export const rocketsQuery = (id) => {
     let rocketsQuery = {
         "query": {

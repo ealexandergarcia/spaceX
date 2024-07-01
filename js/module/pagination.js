@@ -1,5 +1,5 @@
 import { basicQuery, defecto, extendedLaunchesQuery, launchesQuery, pagination, rocketLaunchpadQuery } from "../helper/filtros.js";
-import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getAllShips, getCompany } from "../module/rocket.js"
+import { getAllCapsules, getAllCores, getAllCrew, getAllDragons, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getAllShips, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/common/load.js";
 import { title, titleImage } from "../Components/common/title.js";
@@ -32,6 +32,7 @@ import { fillerImage, imagenCentral } from "../Components/common/imagenes.js";
 import { descriptionText } from "../Components/common/desciprionSection.js";
 import { informationTableLandpads, tableLandpadHeadquartes, tableLandpads, tableLandpadsAS } from "../Components/Landpads/tablesLandpads.js";
 import { informationTableShips, tableShipGeneralDetails, tableShipLocationMovement, tableShipPhysicalCharacteristics, tableShipRoles } from "../Components/ships/tableShip.js";
+import { tableCapsule, tableDimensions, tableDragonHeatShield, tableLaunchPayload, tableReturnPayload, tableThrusters, tableTrunk } from "../Components/dragons/tableDragons.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -211,20 +212,6 @@ const getCrewId = async (e) => {
     await tableCrew1(crew[0]);
     await tableCrew2(crew[0]);
     await imagePatch(crew[0]);
-
-    // await load();
-    // await tableCapsule1(crew[0])
-    // await tablecrew2 (crew[0])
-    // await imagecrew (crew[0])
-    // await informationCapsule(crew[0].last_update)
-    // let {launches:[{links:{webcast}}]} = crew[0];
-    // await informationWebcrew(webcast, "Youtube")
-    // let {launches:[{links:{presskit}}]} = crew[0];
-    // await informationWebcrew(presskit, "SpaceX")
-    // let {launches:[{links:{wikipedia}}]} = crew[0];
-    // await informationWebcrew(wikipedia, "wikipedia")
-    // let {launches:[{links:{youtube_id}}]} = crew[0];
-    // await videocrew(youtube_id)
     await loadFinish();
 }
 
@@ -288,11 +275,6 @@ const getLaunches = async (e) => {
     await tableLunch2(launches[0]);
     await tableLunch3(launches[0]);
     await tableLunch4(launches[0]);
-    // await slideCrew(crew[0]);
-    // let {launches:[{links:{youtube_id}}]} = crew[0];
-    // await tableCrew1(crew[0]);
-    // await tableCrew2(crew[0]);
-    // await imagePatch(crew[0]);
     await loadFinish();
 }
 
@@ -587,6 +569,82 @@ export const paginationShips = async (page = 1,limit = 4) => {
     end.innerHTML = "&raquo;";
     end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
     end.addEventListener("click", getShips)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1, a2, a3, a4, next] = div.children
+    a1.click();
+
+    return div;
+}
+const getDragons = async (e) => {
+    if (e.target.dataset.page) {
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationDragon(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+
+    for (let val of a) {
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    // Configuraciones para la consulta del Api
+    let id = e.target.id;
+
+    // Informacion de la Api
+    let info = await getAllDragons(basicQuery(id));
+
+    // Desestructuracion de la data
+    let { docs: Dragon } = info;
+
+    // Callbacks
+    await load();
+    await title(Dragon[0].name)
+    await descriptionText(Dragon[0].description)
+    await imageRockets(Dragon[0].flickr_images);
+    await tableDragonHeatShield(Dragon[0]);
+    await tableLaunchPayload(Dragon[0]);
+    await tableReturnPayload(Dragon[0]);
+    await tableTrunk(Dragon[0]);
+    await tableCapsule(Dragon[0]);
+    await tableDimensions(Dragon[0]);
+    await tableThrusters(Dragon[0]);
+    // await fillerImage("Dragon.gif");
+    // await tableDragonGeneralDetails(Dragon[0]);
+    // await tableDragonLocationMovement(Dragon[0]);
+    // await tableDragonPhysicalCharacteristics(Dragon[0]);
+    // await tableDragonRoles(Dragon[0]);
+    // await informationTableDragons(Dragon[0])
+    // await loadFinish();
+}
+
+export const paginationDragon = async (page = 1,limit = 4) => {
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllDragons(pagination(page,limit))
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let start = document.createElement("a");
+    start.setAttribute("href", "#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page == 1) ? totalPages : page - 1)
+    start.addEventListener("click", getDragons)
+    div.appendChild(start);
+    docs.forEach((val, id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getDragons)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href", "#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
+    end.addEventListener("click", getDragons)
     div.appendChild(end);
     console.log(div);
     let [back, a1, a2, a3, a4, next] = div.children

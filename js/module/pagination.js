@@ -1,5 +1,5 @@
-import { defecto } from "../helper/filtros.js";
-import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getCompany } from "../module/rocket.js"
+import { basicQuery, defecto, extendedLaunchesQuery, launchesQuery, pagination, rocketLaunchpadQuery } from "../helper/filtros.js";
+import { getAllCapsules, getAllCores, getAllCrew, getAllHistories, getAllLandpads, getAllLaunches, getAllRockets, getAllShips, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/common/load.js";
 import { title, titleImage } from "../Components/common/title.js";
@@ -73,13 +73,8 @@ const getRocketsId = async (e) => {
     }
     e.target.classList.add('activo');
     let id = e.target.id;
-    let Rocketdata = {
-        "query": {
-            "_id": id
-        }
-    }
 
-    let Rocket = await getAllRockets(Rocketdata);
+    let Rocket = await getAllRockets(basicQuery(id));
 
     await load();
     await title(Rocket[0].name)
@@ -136,18 +131,8 @@ const getCapsulesId = async (e) => {
     }
     e.target.classList.add('activo');
     let id = e.target.id;
-    let capsuleData = {
-        "query": {
-            "_id": id
-        },
-        "options": {
-            "populate": [
-                "launches"
-            ]
-        }
-    }
 
-    let info = await getAllCapsules(capsuleData);
+    let info = await getAllCapsules(launchesQuery(id));
     let { docs: capsule } = info;
     await load();
     await title(capsule[0].serial)
@@ -167,14 +152,8 @@ const getCapsulesId = async (e) => {
 }
 
 export const paginationCapsules = async (page = 1, limit = 4) => {
-    const AllCapsules = {
-        "options": {
-            page,
-            limit
-        }
-    }
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllCapsules(AllCapsules)
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllCapsules(pagination(page,limit))
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -219,18 +198,8 @@ const getCrewId = async (e) => {
     e.target.classList.add('activo');
 
     let id = e.target.id;
-    let capsuleData = {
-        "query": {
-            "_id": id
-        },
-        "options": {
-            "populate": [
-                "launches"
-            ]
-        }
-    }
 
-    let info = await getAllCrew(capsuleData);
+    let info = await getAllCrew(launchesQuery(id));
     let { docs: crew } = info;
     await load();
     await title(crew[0].name)
@@ -259,14 +228,8 @@ const getCrewId = async (e) => {
 }
 
 export const paginationCrew = async (page = 1, limit = 4) => {
-    const allCrew = {
-        "options": {
-            page,
-            limit
-        }
-    }
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllCrew(allCrew)
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllCrew(pagination(page,limit))
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -311,19 +274,8 @@ const getLaunches = async (e) => {
     e.target.classList.add('activo');
 
     let id = e.target.id;
-    let capsuleData = {
-        "query": {
-            "_id": id
-        },
-        "options": {
-            "populate": [
-                "rocket",
-                "launchpad"
-            ]
-        }
-    }
 
-    let info = await getAllLaunches(capsuleData);
+    let info = await getAllLaunches(rocketLaunchpadQuery(id));
     let { docs: launches } = info;
     // let {docs:crew}= info;
     await load();
@@ -344,14 +296,8 @@ const getLaunches = async (e) => {
 }
 
 export const paginationLaunches = async (page = 1, limit = 4) => {
-    const allCrew = {
-        "options": {
-            page,
-            limit
-        }
-    }
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllLaunches(allCrew)
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllLaunches(pagination(page,limit))
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -396,27 +342,8 @@ const getCores = async (e) => {
     e.target.classList.add('activo');
 
     let id = e.target.id;
-    console.log("saasdasd");
-    console.log(id);
-    let coreData = {
-        "query": {
-            "_id": id
-        },
-        "options": {
-            "populate": [
-                {
-                    "path": "launches",
-                    "populate": [
-                        { "path": "rocket" },
-                        { "path": "payloads" }
-                    ]
-                }
-            ]
-        }
-    }
-    console.log(coreData);
 
-    let info = await getAllCores(coreData);
+    let info = await getAllCores(extendedLaunchesQuery(id));
     localStorage.setItem("cores", JSON.stringify(info))
     console.log("funciona");
     let { docs: core } = info;
@@ -431,14 +358,8 @@ const getCores = async (e) => {
 }
 
 export const paginationCore = async (page = 1, limit = 4) => {
-    const allCrew = {
-        "options": {
-            page,
-            limit
-        }
-    }
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllCores(allCrew)
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllCores(pagination(page,limit))
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -486,21 +407,9 @@ const getLandpads = async (e) => {
 
     // Configuraciones para la consulta del Api
     let id = e.target.id;
-    let historyData = {
-        "query": {
-            "_id": id
-        },
-        "options": {
-            "populate": [
-                {
-                    "path": "launches"
-                }
-            ]
-        }
-    }
 
     // Informacion de la Api
-    let info = await getAllLandpads(historyData);
+    let info = await getAllLandpads(launchesQuery(id));
 
     // Desestructuracion de la data
     let { docs: Landpad } = info;
@@ -519,14 +428,8 @@ const getLandpads = async (e) => {
 }
 
 export const paginationLandpads = async (page = 1, limit = 4) => {
-    const allHistory = {
-        "options": {
-            page,
-            limit
-        }
-    }
 
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllLandpads(allHistory)
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllLandpads(pagination(page,limit))
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");
@@ -573,16 +476,8 @@ const getHistories = async (e) => {
     e.target.classList.add('activo');
 
     let id = e.target.id;
-    console.log("saasdasd");
-    console.log(id);
-    let historyData = {
-        "query": {
-            "_id": id
-        }
-    }
-    console.log(historyData);
 
-    let info = await getAllHistories(historyData);
+    let info = await getAllHistories(basicQuery(id));
     console.log("funciona");
     let { docs: history } = info;
     console.log(history[0].title);
@@ -595,14 +490,7 @@ const getHistories = async (e) => {
 }
 
 export const paginationHistory = async (page = 1, limit = 4) => {
-    const allHistory = {
-        "options": {
-            page,
-            limit
-        }
-    }
-
-    let { docs, pagingCounter, totalPages, nextPage } = await getAllHistories(allHistory)
+    let { docs, pagingCounter, totalPages, nextPage } = await getAllHistories(pagination(page,limit))
 
     let div = document.createElement("div");
     div.classList.add("buttom__paginacion");

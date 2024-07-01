@@ -100,5 +100,13 @@ dragon.addEventListener("click", async(e)=>{
     paginacion.append(await paginationDragon())
 })
 
+let launchpad = document.querySelector("#launchpad")
+launchpad.addEventListener("click", async(e)=>{
+    await footerSelect(e, launchpad)
+    let paginacion = document.querySelector("#paginacion");
+    paginacion.innerHTML = ""
+    paginacion.append(await paginationLaunchpad())
+})
 
-dragon.click();
+
+launchpad.click();

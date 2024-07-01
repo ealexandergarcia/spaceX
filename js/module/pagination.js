@@ -1,4 +1,4 @@
-import { basicQuery, defecto, extendedLaunchesQuery, launchesQuery, pagination, rocketLaunchpadQuery, rocketsQuery } from "../helper/filtros.js";
+import { basicQuery, defecto, extendedLaunchesQuery, launchQuery, launchesQuery, pagination, rocketLaunchpadQuery, rocketsQuery } from "../helper/filtros.js";
 import { getAllRockets, getAlldata, getCompany } from "../module/rocket.js"
 import { imageRockets } from "../Components/rockets/imagenes.js";
 import { load, loadFinish } from "../Components/common/load.js";
@@ -710,6 +710,77 @@ export const paginationLaunchpad = async (page = 1,limit = 4) => {
     end.innerHTML = "&raquo;";
     end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
     end.addEventListener("click", getLaunchpad)
+    div.appendChild(end);
+    console.log(div);
+    let [back, a1, a2, a3, a4, next] = div.children
+    a1.click();
+
+    return div;
+}
+
+const getPayloads = async (e) => {
+    if (e.target.dataset.page) {
+        let paginacion = document.querySelector("#paginacion");
+        paginacion.innerHTML = ""
+        paginacion.append(await paginationPayloads(Number(e.target.dataset.page)))
+    }
+    let a = e.target.parentElement.children;
+
+    for (let val of a) {
+        val.classList.remove('activo');
+    }
+    e.target.classList.add('activo');
+
+    // Configuraciones para la consulta del Api
+    let id = e.target.id;
+
+    // Informacion de la Api
+    let info = await getAlldata(launchQuery(id),"payloads");
+
+    // Desestructuracion de la data
+    let { docs: payloads } = info;
+
+    // Callbacks
+    await load();
+    await title(payloads[0].name)
+    // await descriptionText(Launchpad[0].details)
+    // await imagenCentral(Launchpad[0].images.large)
+    // await tableLocationInfo(Launchpad[0]);
+    // await tableLaunchStats(Launchpad[0]);
+    // await tableTimezoneInfo(Launchpad[0]);
+    // await tableStatusDetails(Launchpad[0]);
+    // await tableRocketInfo(Launchpad[0]);
+    // await fillerImage("launchpad.gif");
+
+    // await loadFinish();
+}
+
+export const paginationPayloads = async (page = 1,limit = 4) => {
+    let { docs, pagingCounter, totalPages, nextPage } = await getAlldata(pagination(page,limit),"payloads")
+
+    let div = document.createElement("div");
+    div.classList.add("buttom__paginacion");
+
+    let start = document.createElement("a");
+    start.setAttribute("href", "#");
+    start.innerHTML = "&laquo";
+    start.setAttribute("data-page", (page == 1) ? totalPages : page - 1)
+    start.addEventListener("click", getPayloads)
+    div.appendChild(start);
+    docs.forEach((val, id) => {
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.id = val.id;
+        a.textContent = pagingCounter;
+        a.addEventListener("click", getPayloads)
+        div.appendChild(a);
+        pagingCounter++
+    });
+    let end = document.createElement("a");
+    end.setAttribute("href", "#");
+    end.innerHTML = "&raquo;";
+    end.setAttribute("data-page", (page && nextPage) ? page + 1 : 1)
+    end.addEventListener("click", getPayloads)
     div.appendChild(end);
     console.log(div);
     let [back, a1, a2, a3, a4, next] = div.children

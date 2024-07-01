@@ -34,6 +34,7 @@ import { informationTableLandpads, tableLandpadHeadquartes, tableLandpads, table
 import { informationTableShips, tableShipGeneralDetails, tableShipLocationMovement, tableShipPhysicalCharacteristics, tableShipRoles } from "../Components/ships/tableShip.js";
 import { tableCapsule, tableDimensions, tableDragonHeatShield, tableLaunchPayload, tableReturnPayload, tableThrusters, tableTrunk } from "../Components/dragons/tableDragons.js";
 import { tableLaunchStats, tableLocationInfo, tableRocketInfo, tableStatusDetails, tableTimezoneInfo } from "../Components/launchpad/launchpadTable.js";
+import { tablePayloadDragonInfo, tablePayloadGeneralInfo, tablePayloadOrbitInfo, tablePayloadPhysicalCharacteristics } from "../Components/payloads/payloadsTables.js";
 
 export const paginationCompany = async () => {
     let company = await getCompany(defecto);
@@ -743,16 +744,17 @@ const getPayloads = async (e) => {
     // Callbacks
     await load();
     await title(payloads[0].name)
-    // await descriptionText(Launchpad[0].details)
-    // await imagenCentral(Launchpad[0].images.large)
-    // await tableLocationInfo(Launchpad[0]);
-    // await tableLaunchStats(Launchpad[0]);
-    // await tableTimezoneInfo(Launchpad[0]);
-    // await tableStatusDetails(Launchpad[0]);
-    // await tableRocketInfo(Launchpad[0]);
-    // await fillerImage("launchpad.gif");
+    let { launch:{links:{youtube_id}} } = payloads[0];
+    await videoCapsule(youtube_id, "#section__information__1")
+    await tablePayloadGeneralInfo(payloads[0])
+    await tablePayloadPhysicalCharacteristics(payloads[0]);
+    await tablePayloadOrbitInfo(payloads[0]);
+    await tablePayloadDragonInfo(payloads[0]);
+    await fillerImage("payload.gif");
+    // await tableStatusDetails(payloads[0]);
+    // await tableRocketInfo(payloads[0]);
 
-    // await loadFinish();
+    await loadFinish();
 }
 
 export const paginationPayloads = async (page = 1,limit = 4) => {

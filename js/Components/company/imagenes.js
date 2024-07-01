@@ -8,7 +8,7 @@ export const imageCompany = async () => {
     div.classList.add("carousel__item");
 
     const img = document.createElement("img");
-    img.setAttribute("src", "../storage/img/elon.webp");
+    img.setAttribute("src", "./storage/img/elon.webp");
     img.setAttribute("referrerpolicy", "no-referrer");
     img.setAttribute("style", "width: 250px;height: 250px;");
 
@@ -33,7 +33,7 @@ export const imageCompany2 = async () => {
     div.classList.add("carousel__item");
 
     const img = document.createElement("img");
-    img.setAttribute("src", "../storage/img/elonmem.webp");
+    img.setAttribute("src", "./storage/img/elonmem.webp");
     img.setAttribute("referrerpolicy", "no-referrer");
     img.setAttribute("style", "width: 250px;height: 250px;");
 

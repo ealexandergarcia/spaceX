@@ -144,6 +144,7 @@ const getCapsulesId = async (e) => {
     let info = await getAlldata(launchesQuery(id),"capsules");
     let { docs: capsule } = info;
     await load();
+    await fillerImage("capsule.webp");
     await title(capsule[0].serial)
     await tableCapsule1(capsule[0])
     await tableCapsule2(capsule[0])

@@ -1,7 +1,8 @@
 export const informationCapsule = async (last_update) => {
   const container = document.createElement("div");
   container.classList.add("description__container");
-  container.setAttribute("style","align-items: center;")
+  container.classList.add("bg__card")
+  container.setAttribute("style","align-items: center;padding: 15px;")
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";
@@ -28,6 +29,9 @@ export const informationWebCapsule = async (dato,titles) => {
   
   const container = document.createElement("div");
   container.classList.add("description__container");
+  container.classList.add("bg__card")
+  container.setAttribute("style","padding: 15px;")
+
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";

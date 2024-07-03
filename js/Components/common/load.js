@@ -14,6 +14,8 @@ export const load = async()=>{
 
     let section__information__2 = document.querySelector(".section__information__2")
     section__information__2.removeAttribute("style")
+    let carousel__ite3 = section__information__2.querySelector(".carousel__item")
+    carousel__ite3.classList.remove("bg__card");
 
     let section__information__1 = document.querySelector("#section__information__1")
     section__information__1.removeAttribute("style")
@@ -33,6 +35,7 @@ export const load = async()=>{
     let section__information__3 = document.querySelector(".section__information__3")
     section__information__3.removeAttribute("style")
     let carousel__item2 = section__information__3.querySelector(".carousel__item")
+    carousel__item2.classList.remove("bg__card");
     carousel__item2.removeAttribute("style")
     carousel__item2.innerHTML = `
         <div class="load" style="height: 160px;"></div>

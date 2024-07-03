@@ -1,6 +1,8 @@
 export const informationRockets = async (country, description) => {
   const container = document.createElement("div");
   container.classList.add("description__container");
+  container.classList.add("bg__card")
+  container.setAttribute("style","padding: 15px;")
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";
@@ -26,6 +28,8 @@ export const informationRockets = async (country, description) => {
 export const informationLaunchCostRocket = async (cost_per_launch) => {
   const container = document.createElement("div");
   container.classList.add("description__container");
+  container.classList.add("bg__card")
+  container.setAttribute("style","padding: 15px;")
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";
@@ -52,6 +56,8 @@ export const informationLaunchCostRocket = async (cost_per_launch) => {
 export const informationFirstFlightRocket = async(first_flight) => {
   const container = document.createElement("div");
   container.classList.add("description__container");
+  container.classList.add("bg__card")
+  container.setAttribute("style","padding: 15px;")
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";
@@ -74,6 +80,8 @@ export const informationFirstFlightRocket = async(first_flight) => {
 export const informationWebRocket = async (wikipedia) => {
   const container = document.createElement("div");
   container.classList.add("description__container");
+  container.classList.add("bg__card")
+  container.setAttribute("style","padding: 15px;")
 
   const img = document.createElement("img");
   img.src = "storage/img/icons/mech.svg";

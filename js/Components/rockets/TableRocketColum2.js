@@ -1,5 +1,7 @@
 export const tableRocketColum2 = async (Rocket) => {
     const container = document.querySelector("#information__table__2");
+    container.classList.add("bg__card")
+    container.setAttribute("style","padding: 15px;")
     container.innerHTML = "";
   
     const h3 = document.createElement("h3");

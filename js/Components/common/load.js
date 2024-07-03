@@ -22,6 +22,7 @@ export const load = async()=>{
     `;
 
     let information__table__1 = document.querySelector("#information__table__1")
+    information__table__1.classList.remove("bg__card");
     information__table__1.innerHTML = `
         <div class="load" style="height: 160px;"></div>
     `;
@@ -30,6 +31,7 @@ export const load = async()=>{
         <div class="load" style="height: 160px;"></div>
     `;
     let section__information__3 = document.querySelector(".section__information__3")
+    section__information__3.removeAttribute("style")
     let carousel__item2 = section__information__3.querySelector(".carousel__item")
     carousel__item2.innerHTML = `
         <div class="load" style="height: 160px;"></div>
@@ -43,6 +45,7 @@ export const load = async()=>{
 
 
     let information__table__2 = document.querySelector("#information__table__2")
+    information__table__2.classList.remove("bg__card");
     information__table__2.innerHTML = `
         <div class="load" style="height: 160px;"></div>
     `;

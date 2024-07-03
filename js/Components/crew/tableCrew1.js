@@ -4,6 +4,7 @@ export const tableCrew1 = async (crews) => {
   const containerr = document.querySelector(".section__information__2");
   console.log(containerr);
   const container = containerr.querySelector(".carousel__item");
+  container.classList.add("bg__card")
   console.log(container);
 
   // container.innerHTML = "";

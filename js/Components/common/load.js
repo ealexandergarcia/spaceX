@@ -33,6 +33,7 @@ export const load = async()=>{
     let section__information__3 = document.querySelector(".section__information__3")
     section__information__3.removeAttribute("style")
     let carousel__item2 = section__information__3.querySelector(".carousel__item")
+    carousel__item2.removeAttribute("style")
     carousel__item2.innerHTML = `
         <div class="load" style="height: 160px;"></div>
     `;
